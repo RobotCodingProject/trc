@@ -17,7 +17,7 @@ class User {
       }
       return { success: false, msg: "invalid password." };
     }
-    return { success: false, msg: "id not exsist." };
+    return { success: false, msg: "username does not exsist." };
   }
 }
 
