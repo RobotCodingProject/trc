@@ -28,6 +28,6 @@ function login() {
       }
     })
     .catch((err) => {
-      console.err("error has been occur while login");
+      console.error("error has been occur during login.", err);
     });
 }
