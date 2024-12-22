@@ -17,6 +17,8 @@ function login() {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringigy(req),
-  });
+    body: JSON.stringify(req),
+  })
+    .then((res) => res.json())
+    .then((res) => {});
 }
