@@ -1,14 +1,17 @@
 "use strict";
 
-// 모듈
+// modules
 const express = require("express");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const app = express();
 
-// 라우팅
+// routing
 const home = require("./src/routes/home");
 
-// 앱 세팅
+// app setting
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 app.use(express.static(`${__dirname}/src/public`));
