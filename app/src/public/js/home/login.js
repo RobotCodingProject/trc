@@ -7,6 +7,9 @@ const id = document.querySelector("#id"),
 loginBtn.addEventListener("click", login);
 
 function login() {
+  if (!id.value) return alert("please enter id.");
+  if (!pw.value) return alert("please enter password.");
+
   const req = {
     id: id.value,
     pw: pw.value,
@@ -24,6 +27,7 @@ function login() {
       if (res.success) {
         location.href = "/";
       } else {
+        if (res.err) return alert(res.err);
         alert(res.msg);
       }
     })
