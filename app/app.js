@@ -10,6 +10,7 @@ const app = express();
 
 // routing
 const home = require("./src/routes/home");
+const contacts = require("./src/routes/contacts/contacts");
 
 // app setting
 app.set("views", "./src/views");
@@ -19,5 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", home);
+app.use("/contacts", contacts);
 
 module.exports = app;

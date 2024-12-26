@@ -1,0 +1,57 @@
+<%- include("./include/_header") %>
+
+<!-- Main -->
+<main id="site-main">
+  <div class="button-box">
+    <a href="/contacts/:id" class="btn btn-light"
+      ><i class="fa-solid fa-list"></i>Student Lists</a
+    >
+  </div>
+  <h2>Edit Student Record</h2>
+  <p>Edit student record.</p>
+  <form method="POST" id="add-user">
+    <div class="user-info">
+      <div class="col-12">
+        <label for="name" class="col-form-label">Full Name</label>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            value="도레미"
+          />
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="email" class="col-form-label">E-mail</label>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            id="email"
+            value="doremi@abc.def"
+          />
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="phone" class="col-form-label">Mobile</label>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            name="phone"
+            id="phone"
+            value="456-7890-1234"
+          />
+        </div>
+      </div>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</main>
+
+<!-- /Main -->
+
+<%- include("./include/_footer") %>

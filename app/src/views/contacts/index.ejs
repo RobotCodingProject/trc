@@ -1,0 +1,43 @@
+<%- include("./include/_header") %>
+
+<!-- Main -->
+<main id="site-main">
+  <div class="button-box">
+    <a href="/" class="btn btn-light"
+      ><i class="fa-solid fa-user-plus"></i>Add Student</a
+    >
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% contacts.forEach( contact => { %>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.email %></td>
+        <td><%= contact.mobile %></td>
+        <td>
+          <a href="/contacts/<%= contact.id %>/edit" class="btn update" title="Edit">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+          <form action="/contacts/<%= contact.id %>?_method=DELETE" method="POST" style="display:inline;"">
+            <button class="btn delete" title="Delete">
+              <i class="fas fa-times"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+<!-- /Main -->
+
+<%- include("./include/_footer") %>
