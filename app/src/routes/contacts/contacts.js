@@ -16,11 +16,10 @@ const {
 
 // router.use(cookieParser());
 
-router.get("/", getAllContacts);
-router.get("/add", addContactForm);
-router.post("/add", createContact);
-router.get("/:id", getContact);
-router.put("/:id", updateContact);
-router.delete("/:id", deleteContact);
+router.route("/").get(getAllContacts);
+
+router.route("/add").get(addContactForm).post(createContact);
+
+router.route("/:id").get(getContact).put(updateContact).delete(deleteContact);
 
 module.exports = router;

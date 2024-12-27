@@ -3,29 +3,29 @@
   <!-- Main -->
     <main id="site-main">
       <div class="button-box">        
-        <a href="/contacts/add" class="btn btn-light"><i class="fa-solid fa-list"></i>Student Lists</a>
+        <a href="/contacts" class="btn btn-light"><i class="fa-solid fa-list"></i>Student Lists</a>
       </div>
       </div>
       <h2>Add Student</h2>          
       <p>Add a new student.</p>
-      <form method="POST" id="add-user">
+      <form action="/contact/add" method="POST" id="add-user">
         <div class="user-info">
           <div class="col-12">
             <label for="name" class="col-form-label">Full Name</label>
             <div>
-              <input type="text" class="form-control" name="name" id="name" placeholder="홍길동">
+              <input type="text" class="form-control" name="name" id="name" placeholder="user">
             </div>
           </div>
           <div class="col-12">
             <label for="email" class="col-form-label">E-mail</label>
             <div>
-              <input type="text" class="form-control" name="email" id="email" placeholder="hong@abc.def">
+              <input type="text" class="form-control" name="email" id="email" placeholder="user@trc.edu">
             </div>
           </div>
           <div class="col-12">
-            <label for="phone" class="col-form-label">Mobile</label>
+            <label for="mobile" class="col-form-label">Mobile</label>
             <div>
-              <input type="text" class="form-control" name="phone" id="phone" placeholder="123-4567-8901">
+              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="0412345678">
             </div>
           </div>
           <button type="submit">Save</button>

@@ -3,7 +3,7 @@
 <!-- Main -->
 <main id="site-main">
   <div class="button-box">
-    <a href="/" class="btn btn-light"
+    <a href="/contacts/add" class="btn btn-light"
       ><i class="fa-solid fa-user-plus"></i>Add Student</a
     >
   </div>
@@ -24,12 +24,15 @@
         <td><%= contact.email %></td>
         <td><%= contact.mobile %></td>
         <td>
-          <a href="/contacts/<%= contact.id %>/edit" class="btn update" title="Edit">
+          <a href="/contacts/<%= contact.id %>" class="btn update" title="Edit">
             <i class="fas fa-pencil-alt"></i>
           </a>
-          <form action="/contacts/<%= contact.id %>?_method=DELETE" method="POST" style="display:inline;"">
-            <button class="btn delete" title="Delete">
-              <i class="fas fa-times"></i>
+          <form
+            action="/contacts/<%= contact.id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <input type="submit" class="btn delete" title="Delete" value="X">
             </button>
           </form>
         </td>

@@ -3,13 +3,17 @@
 <!-- Main -->
 <main id="site-main">
   <div class="button-box">
-    <a href="/contacts/:id" class="btn btn-light"
+    <a href="/contacts" class="btn btn-light"
       ><i class="fa-solid fa-list"></i>Student Lists</a
     >
   </div>
   <h2>Edit Student Record</h2>
   <p>Edit student record.</p>
-  <form method="POST" id="add-user">
+  <form
+    action="/contacts/<%= contact.id %>?_method=PUT"
+    method="POST"
+    id="add-user"
+  >
     <div class="user-info">
       <div class="col-12">
         <label for="name" class="col-form-label">Full Name</label>
@@ -19,7 +23,7 @@
             class="form-control"
             name="name"
             id="name"
-            value="도레미"
+            value="<%= contact.name %>"
           />
         </div>
       </div>
@@ -31,19 +35,19 @@
             class="form-control"
             name="email"
             id="email"
-            value="doremi@abc.def"
+            value="<%= contact.email %>"
           />
         </div>
       </div>
       <div class="col-12">
-        <label for="phone" class="col-form-label">Mobile</label>
+        <label for="mobile" class="col-form-label">Mobile</label>
         <div>
           <input
             type="text"
             class="form-control"
-            name="phone"
-            id="phone"
-            value="456-7890-1234"
+            name="mobile"
+            id="mobile"
+            value="<%= contact.mobile %>"
           />
         </div>
       </div>

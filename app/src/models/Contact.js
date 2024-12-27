@@ -4,12 +4,12 @@ const db = require("../config/db");
 
 class Contact {
   static getAllContacts(callback) {
-    const query = "SELECT * FROM students";
+    const query = "SELECT * FROM contacts";
     db.query(query, callback);
   }
 
-  static getStudentInfo(id, callback) {
-    const query = "SELECT * FROM students WHERE id = ?";
+  static getContactInfo(id, callback) {
+    const query = "SELECT * FROM contacts WHERE id = ?";
     db.query(query, [id], (err, data) => {
       if (err) callback(err);
       else callback(null, data[0]);
@@ -19,7 +19,7 @@ class Contact {
   static save(contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO students (name, email, mobile) VALUES (?, ?, ?)";
+        "INSERT INTO contacts (name, email, mobile) VALUES (?, ?, ?)";
       db.query(
         query,
         [contactInfo.name, contactInfo.email, contactInfo.mobile],
@@ -34,7 +34,7 @@ class Contact {
   static updateContact(id, contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE students SET name = ?, email = ?, mobile = ? WHERE id = ?";
+        "UPDATE contacts SET name = ?, email = ?, mobile = ? WHERE id = ?";
       db.query(
         query,
         [contactInfo.name, contactInfo.email, contactInfo.mobile, id],
@@ -48,7 +48,7 @@ class Contact {
 
   static deleteContact(id) {
     return new Promise((resolve, reject) => {
-      const query = "DELETE FROM students WHERE id = ?";
+      const query = "DELETE FROM contacts WHERE id = ?";
       db.query(query, [id], (err, result) => {
         if (err) reject(err);
         else resolve(result);

@@ -47,11 +47,11 @@ const createContact = asyncHandler(async (req, res) => {
 const getContact = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    Contact.getStudentInfo(id, (err, contact) => {
+    Contact.getContactInfo(id, (err, contact) => {
       if (err || !contact) {
         res.status(404).send({ error: "Student not found" });
       }
-      res.render("contacts/updeate", { contacts });
+      res.render("contacts/update", { contact });
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -60,31 +60,48 @@ const getContact = asyncHandler(async (req, res) => {
 
 // @desc Update contact
 // @route PUT /contacts/:id
-const updateContact = asyncHandler(async (req, res) => {
+const updateContact = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { name, email, mobile } = req.body;
 
   if (!name || !email || !mobile) {
-    return res.status(400).send({ error: "All fields are required" });
+    const error = new Error("All fields are required");
+    error.status = 400;
+    return next(error);
   }
 
   try {
-    await Contact.updateContact(id, { name, email, mobile });
+    const updatedContact = await Contact.updateContact(id, {
+      name,
+      email,
+      mobile,
+    });
+    if (!updatedContact) {
+      const error = new Error("Contact not found");
+      error.status = 404;
+      return next(error);
+    }
     res.redirect("/contacts");
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    return next(err); // Pass any unexpected errors to the error handler
   }
 });
 
 // @desc Delete contact
 // @route DELETE /contacts/:id
-const deleteContact = asyncHandler(async (req, res) => {
+const deleteContact = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+
   try {
-    await Contact.deleteContact(id);
+    const deletedContact = await Contact.deleteContact(id);
+    if (!deletedContact) {
+      const error = new Error("Contact not found");
+      error.status = 404;
+      return next(error);
+    }
     res.redirect("/contacts");
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    return next(err); // Pass any unexpected errors to the error handler
   }
 });
 
