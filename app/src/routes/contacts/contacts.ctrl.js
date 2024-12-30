@@ -51,7 +51,7 @@ const getContact = asyncHandler(async (req, res) => {
       if (err || !contact) {
         res.status(404).send({ error: "Student not found" });
       }
-      res.render("/contacts/update", { contact });
+      res.render("contacts/update", { contact });
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
