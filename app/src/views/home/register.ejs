@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<%- include("./include/_header") %>
 
-    <link rel="stylesheet" href="/css/home/login.css" />
-    <script src="/js/home/register.js" defer></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="login-page">
-      <div class="form">
-        <form class="login-form">
-          <input id="id" type="text" placeholder="username" />
-          <input id="name" type="text" placeholder="name" />
-          <input id="pw" type="password" placeholder="password" />
-          <input
+<!-- Main -->
+<main id="site-main">
+  <h3>Sign Up</h3>
+
+  <div class="login-page">
+    <div class="form">
+      <form class="login-form">
+        <input id="id" type="text" placeholder="Username" />
+        <input id="name" type="text" placeholder="Name" />
+        <input id="pw" type="password" placeholder="Password" />
+        <input
             id="confirm-pw"
             type="password"
-            placeholder="confirm password"
+            placeholder="Confirm Password"
           />
-          <p id="button">SIGN UP</p id="button">
-          <p class="message">Already registered? <a href="/login">login</a></p>
-        </form>
-      </div>
+        <p id="button">CREATE AN ACCOUNT</p id="button">
+        <p class="message">
+          Already registered? <a href="/login">Login</a>
+        </p>
+      </form>
     </div>
-  </body>
-</html>
+  </div>
+</main>
+<!-- /Main -->
 
-<!-- Copyright (c) 2024 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy) -->
+<script src="/js/home/register.js" defer></script>
+
+<%- include("./include/_footer") %>

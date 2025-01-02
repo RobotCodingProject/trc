@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<%- include("./include/_header") %>
 
-    <link rel="stylesheet" href="/css/home/login.css" />
-    <script src="/js/home/login.js" defer></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="login-page">
-      <div class="form">
-        <form class="login-form">
-          <input id="id" type="text" placeholder="username" />
-          <input id="pw" type="password" placeholder="password" />
-          <p id="button">login</p id="button">
-          <p class="message">
-            Not registered? <a href="/register">Create an account</a>
-          </p>
-        </form>
-      </div>
+<!-- Main -->
+<main id="site-main">
+  <h3>Welcome!</h3>
+
+  <div class="login-page">
+    <div class="form">
+      <form class="login-form">
+        <input id="id" type="text" placeholder="Username" />
+        <input id="pw" type="password" placeholder="Password" />
+        <p id="button">Login</p id="button">
+        <p class="message">
+          Not registered? <a href="/register">Sign up</a>
+        </p>
+      </form>
     </div>
-  </body>
-</html>
+  </div>
+</main>
+<!-- /Main -->
 
-<!-- Copyright (c) 2024 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy) -->
+<script src="/js/home/login.js" defer></script>
+
+<%- include("./include/_footer") %>
