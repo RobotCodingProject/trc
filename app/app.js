@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(errorhandler);
 app.use(methodOverride("_method"));
+app.use(express.static('public'));
 
 app.use("/", home);
 app.use("/contacts", contacts);
