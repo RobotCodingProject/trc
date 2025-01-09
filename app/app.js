@@ -14,6 +14,7 @@ const app = express();
 // routing
 const home = require("./src/routes/home");
 const contacts = require("./src/routes/contacts/contacts");
+const schedule = require("./src/routes/schedule/schedule");
 
 // app setting
 app.set("views", "./src/views");
@@ -24,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(errorhandler);
 app.use(methodOverride("_method"));
-app.use(express.static('public'));
 
 app.use("/", home);
 app.use("/contacts", contacts);
+app.use("/schedule", schedule);
 
 module.exports = app;
