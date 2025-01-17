@@ -42,8 +42,19 @@
     <h2><%= heading %></h2>
     <ul>
       <% users.forEach(user => { %>
-      <li><strong>Name: </strong> <%= user.name %></li>
-      <li><strong>E-mail: </strong><%= user.email %></li>
+      <li><strong>Student ID: </strong> <%= user.student_id %></li>
+      <li><strong>Name: </strong><%= user.student_name %></li>
+      <li><strong>School: </strong><%= user.school_name %></li>
+      <li><strong>Year: </strong><%= user.school_year %></li>
+      <li><strong>Email: </strong><%= user.email %></li>
+      <li><strong>Parent Name: </strong><%= user.parent_name %></li>
+      <li><strong>Contact Number: </strong><%= user.contact_number %></li>
+      <li><strong>Trial: </strong><%= user.trial_date_time %></li>
+      <li><strong>NDIS: </strong><%= user.ndis %></li>
+      <li><strong>Class Day: </strong><%= user.class_day %></li>
+      <li><strong>Class Time: </strong><%= user.class_time %></li>
+      <li><strong>Memo: </strong><%= user.memo_note %></li>
+
       <% }); %>
     </ul>
   </body>
