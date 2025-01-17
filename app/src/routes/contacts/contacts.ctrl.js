@@ -26,16 +26,42 @@ const addContactForm = asyncHandler((req, res) => {
 });
 
 // @desc Create a contact
-// @route POST/contacts/add
+// @route POST /contacts/add
 const createContact = asyncHandler(async (req, res) => {
-  const { name, email, mobile } = req.body;
+  const {
+    student_id,
+    student_name,
+    school_name,
+    school_year,
+    student_email,
+    parent_name,
+    contact_number,
+    trial_date_time,
+    ndis,
+    class_day,
+    class_time,
+    memo_note,
+  } = req.body;
 
-  if (!name || !email || !mobile) {
-    return res.status(400).send({ error: "All fields are required" });
+  if (!student_name || !school_name || !contact_number) {
+    return res.status(400).send({ error: "Required fields are missing" });
   }
 
   try {
-    await Contact.save({ name, email, mobile });
+    await Contact.save({
+      student_id,
+      student_name,
+      school_name,
+      school_year,
+      student_email,
+      parent_name,
+      contact_number,
+      trial_date_time,
+      ndis,
+      class_day,
+      class_time,
+      memo_note,
+    });
     res.redirect("/contacts");
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -50,8 +76,9 @@ const getContact = asyncHandler(async (req, res) => {
     Contact.getContactInfo(id, (err, contact) => {
       if (err || !contact) {
         res.status(404).send({ error: "Student not found" });
+      } else {
+        res.render("contacts/update", { contact });
       }
-      res.render("contacts/update", { contact });
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -62,19 +89,39 @@ const getContact = asyncHandler(async (req, res) => {
 // @route PUT /contacts/:id
 const updateContact = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { name, email, mobile } = req.body;
+  const {
+    student_name,
+    school_name,
+    school_year,
+    student_email,
+    parent_name,
+    contact_number,
+    trial_date_time,
+    ndis,
+    class_day,
+    class_time,
+    memo_note,
+  } = req.body;
 
-  if (!name || !email || !mobile) {
-    const error = new Error("All fields are required");
+  if (!student_name || !school_name || !contact_number) {
+    const error = new Error("Required fields are missing");
     error.status = 400;
     return next(error);
   }
 
   try {
     const updatedContact = await Contact.updateContact(id, {
-      name,
-      email,
-      mobile,
+      student_name,
+      school_name,
+      school_year,
+      student_email,
+      parent_name,
+      contact_number,
+      trial_date_time,
+      ndis,
+      class_day,
+      class_time,
+      memo_note,
     });
     if (!updatedContact) {
       const error = new Error("Contact not found");

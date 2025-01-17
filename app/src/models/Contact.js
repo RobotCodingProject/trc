@@ -16,33 +16,33 @@ class Contact {
     });
   }
 
-  static save(contactInfo) {
-    return new Promise((resolve, reject) => {
-      const query =
-        "INSERT INTO contacts (student_id, student_name, school_name, school_year, student_email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time, memo_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      db.query(
-        query,
-        [
-          contactInfo.student_id,
-          contactInfo.student_name,
-          contactInfo.school_name,
-          contactInfo.school_year,
-          contactInfo.student_email,
-          contactInfo.parent_name,
-          contactInfo.contact_number,
-          contactInfo.trial_date_time,
-          contactInfo.ndis,
-          contactInfo.class_day,
-          contactInfo.class_time,
-          contactInfo.memo_note,
-        ],
-        (err, result) => {
-          if (err) reject(err);
-          else resolve(result);
-        }
-      );
-    });
-  }
+ static save(contactInfo) {
+  return new Promise((resolve, reject) => {
+    const query =
+      "INSERT INTO contacts (student_name, school_name, school_year, student_email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time, memo_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    db.query(
+      query,
+      [
+        contactInfo.student_name,
+        contactInfo.school_name,
+        contactInfo.school_year,
+        contactInfo.student_email,
+        contactInfo.parent_name,
+        contactInfo.contact_number,
+        contactInfo.trial_date_time,
+        contactInfo.ndis,
+        contactInfo.class_day,
+        contactInfo.class_time,
+        contactInfo.memo_note,
+      ],
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  });
+}
+
 
   static updateContact(id, contactInfo) {
     return new Promise((resolve, reject) => {
