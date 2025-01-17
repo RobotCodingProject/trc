@@ -40,7 +40,7 @@
     <tbody>
       <% contacts.forEach( contact => { %>
       <tr>
-        <td><%= contact.student_id %></td>
+        <td><%= contact.id %></td>
         <td><%= contact.student_name %></td>
         <td><%= contact.school_name %></td>
         <td><%= contact.school_year %></td>
@@ -54,11 +54,11 @@
         <td><%= contact.memo_note %></td>
 
         <td>
-          <a href="/contacts/<%= contact.student_id %>" class="btn update" title="Edit">
+          <a href="/contacts/<%= contact.id %>" class="btn update" title="Edit">
             <i class="fas fa-pencil-alt"></i>
           </a>
           <form
-            action="/contacts/<%= contact.student_id %>?_method=DELETE"
+            action="/contacts/<%= contact.id %>?_method=DELETE"
             method="POST"
             style="display: inline"
           >

@@ -29,7 +29,7 @@ const addContactForm = asyncHandler((req, res) => {
 // @route POST /contacts/add
 const createContact = asyncHandler(async (req, res) => {
   const {
-    student_id,
+    id,
     student_name,
     school_name,
     school_year,
@@ -49,7 +49,7 @@ const createContact = asyncHandler(async (req, res) => {
 
   try {
     await Contact.save({
-      student_id,
+      id,
       student_name,
       school_name,
       school_year,
