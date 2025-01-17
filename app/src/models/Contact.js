@@ -9,7 +9,7 @@ class Contact {
   }
 
   static getContactInfo(id, callback) {
-    const query = "SELECT * FROM contacts WHERE id = ?";
+    const query = "SELECT * FROM contacts WHERE student_id = ?";
     db.query(query, [id], (err, data) => {
       if (err) callback(err);
       else callback(null, data[0]);
@@ -19,10 +19,23 @@ class Contact {
   static save(contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO contacts (name, email, mobile) VALUES (?, ?, ?)";
+        "INSERT INTO contacts (student_id, student_name, school_name, school_year, student_email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time, memo_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
         query,
-        [contactInfo.name, contactInfo.email, contactInfo.mobile],
+        [
+          contactInfo.student_id,
+          contactInfo.student_name,
+          contactInfo.school_name,
+          contactInfo.school_year,
+          contactInfo.student_email,
+          contactInfo.parent_name,
+          contactInfo.contact_number,
+          contactInfo.trial_date_time,
+          contactInfo.ndis,
+          contactInfo.class_day,
+          contactInfo.class_time,
+          contactInfo.memo_note,
+        ],
         (err, result) => {
           if (err) reject(err);
           else resolve(result);
@@ -34,10 +47,23 @@ class Contact {
   static updateContact(id, contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE contacts SET name = ?, email = ?, mobile = ? WHERE id = ?";
+        "UPDATE contacts SET student_name = ?, school_name = ?, school_year = ?, student_email = ?, parent_name = ?, contact_number = ?, trial_date_time = ?, ndis = ?, class_day = ?, class_time = ?, memo_note = ? WHERE student_id = ?";
       db.query(
         query,
-        [contactInfo.name, contactInfo.email, contactInfo.mobile, id],
+        [
+          contactInfo.student_name,
+          contactInfo.school_name,
+          contactInfo.school_year,
+          contactInfo.student_email,
+          contactInfo.parent_name,
+          contactInfo.contact_number,
+          contactInfo.trial_date_time,
+          contactInfo.ndis,
+          contactInfo.class_day,
+          contactInfo.class_time,
+          contactInfo.memo_note,
+          id,
+        ],
         (err, result) => {
           if (err) reject(err);
           else resolve(result);
@@ -48,7 +74,7 @@ class Contact {
 
   static deleteContact(id) {
     return new Promise((resolve, reject) => {
-      const query = "DELETE FROM contacts WHERE id = ?";
+      const query = "DELETE FROM contacts WHERE student_id = ?";
       db.query(query, [id], (err, result) => {
         if (err) reject(err);
         else resolve(result);
