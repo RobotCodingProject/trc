@@ -22,18 +22,37 @@
   <table class="table">
     <thead>
       <tr>
+        <th>Student ID</th>
         <th>Name</th>
+        <th>School</th>
+        <th>Year</th>
         <th>Email</th>
-        <th>Mobile</th>
+        <th>Parent Name</th>
+        <th>Contact Number</th>
+        <th>Trial</th>
+        <th>NDIS</th>
+        <th>Class Day</th>
+        <th>Class Time</th>
+        <th>Memo</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% contacts.forEach( contact => { %>
       <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.mobile %></td>
+        <td><%= contact.student_id %></td>
+        <td><%= contact.student_name %></td>
+        <td><%= contact.school_name %></td>
+        <td><%= contact.school_year %></td>
+        <td><%= contact.student_email %></td>
+        <td><%= contact.parent_name %></td>
+        <td><%= contact.contact_number %></td>
+        <td><%= contact.trial_date_time %></td>
+        <td><%= contact.ndis %></td>
+        <td><%= contact.class_day %></td>
+        <td><%= contact.class_time %></td>
+        <td><%= contact.memo_note %></td>
+
         <td>
           <a href="/contacts/<%= contact.id %>" class="btn update" title="Edit">
             <i class="fas fa-pencil-alt"></i>
