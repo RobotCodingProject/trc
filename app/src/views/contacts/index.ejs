@@ -22,7 +22,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Student ID</th>
+        <th>ID</th>
         <th>Name</th>
         <th>School</th>
         <th>Year</th>
@@ -33,7 +33,7 @@
         <th>NDIS</th>
         <th>Class Day</th>
         <th>Class Time</th>
-        <th>Memo</th>
+        <!-- <th>Memo</th> -->
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -44,14 +44,14 @@
         <td><%= contact.student_name %></td>
         <td><%= contact.school_name %></td>
         <td><%= contact.school_year %></td>
-        <td><%= contact.student_email %></td>
+        <td><%= contact.email %></td>
         <td><%= contact.parent_name %></td>
         <td><%= contact.contact_number %></td>
         <td><%= contact.trial_date_time %></td>
         <td><%= contact.ndis %></td>
         <td><%= contact.class_day %></td>
         <td><%= contact.class_time %></td>
-        <td><%= contact.memo_note %></td>
+        <!-- <td><%= contact.memo_note %></td> -->
 
         <td>
           <a href="/contacts/<%= contact.student_id %>" class="btn update" title="Edit">

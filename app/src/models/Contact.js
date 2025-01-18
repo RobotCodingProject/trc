@@ -16,53 +16,24 @@ class Contact {
     });
   }
 
- static save(contactInfo) {
-  return new Promise((resolve, reject) => {
-    const query =
-      "INSERT INTO contacts (student_name, school_name, school_year, student_email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time, memo_note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    db.query(
-      query,
-      [
-        contactInfo.student_name,
-        contactInfo.school_name,
-        contactInfo.school_year,
-        contactInfo.student_email,
-        contactInfo.parent_name,
-        contactInfo.contact_number,
-        contactInfo.trial_date_time,
-        contactInfo.ndis,
-        contactInfo.class_day,
-        contactInfo.class_time,
-        contactInfo.memo_note,
-      ],
-      (err, result) => {
-        if (err) reject(err);
-        else resolve(result);
-      }
-    );
-  });
-}
-
-
-  static updateContact(id, contactInfo) {
+  static save(contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE contacts SET student_name = ?, school_name = ?, school_year = ?, student_email = ?, parent_name = ?, contact_number = ?, trial_date_time = ?, ndis = ?, class_day = ?, class_time = ?, memo_note = ? WHERE student_id = ?";
+        "INSERT INTO contacts (student_name, school_name, school_year, email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
         query,
         [
           contactInfo.student_name,
           contactInfo.school_name,
           contactInfo.school_year,
-          contactInfo.student_email,
+          contactInfo.email,
           contactInfo.parent_name,
           contactInfo.contact_number,
           contactInfo.trial_date_time,
           contactInfo.ndis,
           contactInfo.class_day,
           contactInfo.class_time,
-          contactInfo.memo_note,
-          id,
+          // contactInfo.memo_note,
         ],
         (err, result) => {
           if (err) reject(err);
@@ -72,10 +43,38 @@ class Contact {
     });
   }
 
-  static deleteContact(id) {
+  static updateContact(student_id, contactInfo) {
+    return new Promise((resolve, reject) => {
+      const query =
+        "UPDATE contacts SET student_name = ?, school_name = ?, school_year = ?, email = ?, parent_name = ?, contact_number = ?, trial_date_time = ?, ndis = ?, class_day = ?, class_time = ? WHERE student_id = ?";
+      db.query(
+        query,
+        [
+          contactInfo.student_name,
+          contactInfo.school_name,
+          contactInfo.school_year,
+          contactInfo.email,
+          contactInfo.parent_name,
+          contactInfo.contact_number,
+          contactInfo.trial_date_time,
+          contactInfo.ndis,
+          contactInfo.class_day,
+          contactInfo.class_time,
+          // contactInfo.memo_note,
+          student_id,
+        ],
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
+    });
+  }
+
+  static deleteContact(student_id) {
     return new Promise((resolve, reject) => {
       const query = "DELETE FROM contacts WHERE student_id = ?";
-      db.query(query, [id], (err, result) => {
+      db.query(query, [student_id], (err, result) => {
         if (err) reject(err);
         else resolve(result);
       });

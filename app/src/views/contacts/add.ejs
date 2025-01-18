@@ -27,13 +27,13 @@
           <div class="col-12">
             <label for="student_name" class="col-form-label">Name</label>
             <div>
-              <input type="varchar(30)" class="form-control" name="student_name" id="student_name" placeholder="User Name">
+              <input type="varchar(255)" class="form-control" name="student_name" id="student_name" placeholder="Student Name">
             </div>
           </div>
           <div class="col-12">
             <label for="school_name" class="col-form-label">School</label>
             <div>
-              <input type="varchar(30)" class="form-control" name="school_name" id="school_name" placeholder="School Name">
+              <input type="varchar(255)" class="form-control" name="school_name" id="school_name" placeholder="School Name">
             </div>
           </div>
           <div class="col-12">
@@ -43,21 +43,21 @@
             </div>
           </div>
           <div class="col-12">
-            <label for="student_email" class="col-form-label">Email</label>
+            <label for="email" class="col-form-label">Email</label>
             <div>
-              <input type="varchar(50)" class="form-control" name="student_email" id="student_email" placeholder="user@trc.edu">
+              <input type="varchar(255)" class="form-control" name="email" id="email" placeholder="user@trc.edu">
             </div>
           </div>
           <div class="col-12">
             <label for="parent_name" class="col-form-label">Parent Name</label>
             <div>
-              <input type="varchar(30)" class="form-control" name="name" id="name" placeholder="Parent Name">
+              <input type="varchar(255)" class="form-control" name="parent_name" id="parent_name" placeholder="Parent Name">
             </div>
           </div>
           <div class="col-12">
             <label for="contact_number" class="col-form-label">Contact Number</label>
             <div>
-              <input type="varchar(30)" class="form-control" name="contact_number" id="contact_number" placeholder="0400000000">
+              <input type="varchar(255)" class="form-control" name="contact_number" id="contact_number" placeholder="0400000000">
             </div>
           </div>
           <div class="col-12">
@@ -69,27 +69,27 @@
           <div class="col-12">
             <label for="ndis" class="col-form-label">NDIS</label>
             <div>
-              <input type="boolean" class="form-control" name="ndis" id="ndis" placeholder="Yes(1) or No(0)">
+              <input type="enum" class="form-control" name="ndis" id="ndis" placeholder="Yes or No">
             </div>
           </div>
           <div class="col-12">
             <label for="class_day" class="col-form-label">Class Day</label>
             <div>
-              <input type="varchar(10)" class="form-control" name="class_day" id="class_day" placeholder="Class Day">
+              <input type="enum" class="form-control" name="class_day" id="class_day" placeholder="Class Day">
             </div>
           </div>
           <div class="col-12">
             <label for="class_time" class="col-form-label">Class Time</label>
             <div>
-              <input type="varchar(20)" class="form-control" name="class_time" id="class_time" placeholder="00:00PM-00:00PM">
+              <input type="time" class="form-control" name="class_time" id="class_time" placeholder="00:00PM-00:00PM">
             </div>
           </div>
-          <div class="col-12">
+          <!-- <div class="col-12">
             <label for="memo_note" class="col-form-label">Memo</label>
             <div>
               <input type="text" class="form-control" name="memo_note" id="memo_note" placeholder="Memo">
             </div>
-          </div>
+          </div> -->
           <button type="submit">Save</button>
         </div>
       </form>   

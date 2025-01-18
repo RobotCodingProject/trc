@@ -44,6 +44,14 @@ function renderCalendar() {
       year === new Date().getFullYear()
         ? ' class="today"'
         : "";
+
+    const event = schedule.find(
+      (event) =>
+        new Date(event.date).getDate() === i &&
+        new Date(event.date).getMonth() === month
+    );
+    const eventIcon = event ? '<span class="event-icon">🔔</span>' : "";
+
     datesHtml += `<li${className}>${i}</li>`;
   }
 

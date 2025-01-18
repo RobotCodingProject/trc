@@ -18,11 +18,11 @@
   </div>
   <h2>Edit Student Record</h2>
   <form
-    action="/contacts/<%= contact.id %>?_method=PUT"
+    action="/contacts/<%= contact.student_id %>?_method=PUT"
     method="POST"
     id="add-user"
   >
-    <div class="user-info">
+    <!-- <div class="user-info">
       <div class="col-12">
         <label for="student_id" class="col-form-label">Student ID</label>
         <div>
@@ -34,12 +34,12 @@
             value="<%= contact.student_id %>"
           />
         </div>
-      </div>
+      </div> -->
       <div class="col-12">
         <label for="student_name" class="col-form-label">Name</label>
         <div>
           <input
-            type="varchar(30)"
+            type="varchar(255)"
             class="form-control"
             name="student_name"
             id="student_name"
@@ -51,7 +51,7 @@
         <label for="school_name" class="col-form-label">School</label>
         <div>
           <input
-            type="varchar(30)"
+            type="varchar(255)"
             class="form-control"
             name="school_name"
             id="school_name"
@@ -74,14 +74,14 @@
       </div>
 
       <div class="col-12">
-        <label for="student_email" class="col-form-label">Email</label>
+        <label for="email" class="col-form-label">Email</label>
         <div>
           <input
-            type="varchar(50)"
+            type="varchar(255)"
             class="form-control"
-            name="student_email"
-            id="student_email"
-            value="<%= contact.student_email %>"
+            name="email"
+            id="email"
+            value="<%= contact.email %>"
           />
         </div>
       </div>
@@ -90,7 +90,7 @@
         <label for="parent_name" class="col-form-label">Parent Name</label>
         <div>
           <input
-            type="varchar(30)"
+            type="varchar(255)"
             class="form-control"
             name="parent_name"
             id="parent_name"
@@ -102,7 +102,7 @@
           <label for="contact_number" class="col-form-label">Contact Number</label>
           <div>
             <input
-              type="varchar(30)"
+              type="varchar(255)"
               class="form-control"
               name="contact_number"
               id="contact_number"
@@ -126,7 +126,7 @@
               <label for="ndis" class="col-form-label">NDIS</label>
               <div>
                 <input
-                  type="tinyint(1)"
+                  type="enum"
                   class="form-control"
                   name="ndis"
                   id="ndis"
@@ -138,7 +138,7 @@
                 <label for="class_day" class="col-form-label">Class Day</label>
                 <div>
                   <input
-                    type="varchar(10)"
+                    type="enum"
                     class="form-control"
                     name="class_day"
                     id="class_day"
@@ -150,7 +150,7 @@
                   <label for="class_time" class="col-form-label">Class Time</label>
                   <div>
                     <input
-                      type="varchar(20)"
+                      type="time"
                       class="form-control"
                       name="class_time"
                       id="class_time"
@@ -158,7 +158,7 @@
                     />
                   </div>
 
-                  <div class="col-12">
+                  <!-- <div class="col-12">
                     <label for="memo_note" class="col-form-label">Memo</label>
                     <div>
                       <input
@@ -168,10 +168,8 @@
                         id="memo_note"
                         value="<%= contact.memo_note %>"
                       />
-                    </div>
-            
-
-              
+                    </div> -->
+               
       <button type="submit">Save</button>
     </div>
   </form>
