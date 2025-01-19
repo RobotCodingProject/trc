@@ -61,6 +61,7 @@
             action="/contacts/<%= contact.student_id %>?_method=DELETE"
             method="POST"
             style="display: inline"
+            onsubmit="return confirmDelete()"
           >
             <input type="submit" class="btn delete" title="Delete" value="X">
             </button>
@@ -70,6 +71,7 @@
       <% }) %>
     </tbody>
   </table>
+  <script src="js/contacts/contacts.js" defer></script>
 </main>
 <!-- /Main -->
 

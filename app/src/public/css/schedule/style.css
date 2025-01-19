@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Rowdies&family=Titillium+Web&display=swap");
-
 .strike {
   text-decoration: line-through;
 }
@@ -33,35 +31,34 @@ td {
 }
 
 ::-ms-input-placeholder {
-  color: #ed6a5e;
+  color: #ddd;
 }
 
 ::-webkit-input-placeholder {
-  color: #ed6a5e;
+  color: #ddd;
 }
 
 ::placeholder {
-  color: #ed6a5e;
+  color: #ddd;
 }
 
 input {
-  color: #a11e12;
+  color: #222;
 }
 
 h3 {
-  color: #a11e12;
-  font-family: "Rowdies", cursive;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-  font-family: "Titillium Web", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .schedule-block {
-  border: 1px solid #ff8e72;
+  border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 20px;
-  color: #a11e12;
+  color: #222;
 }
 
 @media screen and (max-width: 767px) {
@@ -106,11 +103,11 @@ body {
   min-width: 50vw;
   height: 50vh;
   /*border: 1px solid green;*/
-  background-color: #ffd6cc;
+  background-color: #eee;
 }
 
 .schedule-modal-close-btn {
-  background-color: red;
+  background-color: #ddd;
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -130,21 +127,21 @@ body {
 }
 
 #scheduleTable tr:nth-child(even) {
-  background-color: #ffd6cc;
+  background-color: #fff;
 }
 
 button {
-  background-color: #ffd6cc;
-  color: #a11e12;
-  border: 1px outset #ed6a5e;
+  background-color: #eee;
+  color: #222;
+  border: 1px outset #eee;
 }
 
 button:active {
-  border: 1px inset #ed6a5e;
+  border: 1px inset #ddd;
 }
 
 button:hover {
-  background-color: #ffad99;
+  background-color: #ddd;
 }
 
 .chevron {

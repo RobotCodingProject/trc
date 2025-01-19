@@ -314,8 +314,8 @@ function scheduleMain() {
       eventClick: function (info) {
         toEditItem(info.event);
       },
-      eventBackgroundColor: "#a11e12",
-      eventBorderColor: "#ed6a5e",
+      eventBackgroundColor: "#0050bd",
+      eventBorderColor: "#ddd",
       editable: true,
       eventDrop: function (info) {
         calendarEventDragged(info.event);
@@ -336,7 +336,7 @@ function scheduleMain() {
       id: id,
       title: schedule,
       start: time === "" ? date : `${date}T${time}`,
-      backgroundColor: done ? "green" : "#a11e12",
+      backgroundColor: done ? "#ddd" : "#89d0f8",
     });
   }
 
