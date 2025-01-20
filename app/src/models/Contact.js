@@ -80,6 +80,15 @@ class Contact {
       });
     });
   }
+
+  static searchContacts(query, callback) {
+    const searchQuery = `
+      SELECT * FROM contacts 
+      WHERE student_name LIKE ? 
+    `;
+    const searchValue = `%${query}%`;
+    db.query(searchQuery, searchValue, callback);
+  }
 }
 
 module.exports = Contact;

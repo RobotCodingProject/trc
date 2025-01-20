@@ -13,6 +13,25 @@
 <main id="site-main">
   <h2>Student Records</h2>
 
+  <div class="search-box">
+    <form action="/contacts/search" method="GET">
+      <input
+        type="text"
+        name="query"
+        placeholder="Search by student name"
+        required
+      />
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i> Search
+      </button>
+    </form>
+    <!-- Display an error message if no contacts are found -->
+    <% if (typeof error !== 'undefined') { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+  </div>
+  
+
   <div class="button-box">
     <a href="/contacts/add" class="btn btn-light"
       ><i class="fa-solid fa-user-plus"></i>Add Student</a
@@ -22,7 +41,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
+        <!-- <th>ID</th> -->
         <th>Name</th>
         <th>School</th>
         <th>Year</th>
@@ -40,7 +59,7 @@
     <tbody>
       <% contacts.forEach( contact => { %>
       <tr>
-        <td><%= contact.student_id %></td>
+        <!-- <td><%= contact.student_id %></td> -->
         <td><%= contact.student_name %></td>
         <td><%= contact.school_name %></td>
         <td><%= contact.school_year %></td>
