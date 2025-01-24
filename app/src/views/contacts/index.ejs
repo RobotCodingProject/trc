@@ -21,14 +21,11 @@
         placeholder="Search by student name"
         required
       />
-      <button type="submit" class="btn btn-primary">
+      <!-- <button type="submit" class="btn btn-primary">
         <i class="fas fa-search"></i> Search
-      </button>
+      </button> -->
+      <input type="submit" value="Search">
     </form>
-    <!-- Display an error message if no contacts are found -->
-    <% if (typeof error !== 'undefined') { %>
-      <p class="error"><%= error %></p>
-    <% } %>
   </div>
   
 
@@ -37,7 +34,6 @@
       ><i class="fa-solid fa-user-plus"></i>Add Student</a
     >
   </div>
-
   <table class="table">
     <thead>
       <tr>
@@ -57,7 +53,7 @@
       </tr>
     </thead>
     <tbody>
-      <% contacts.forEach( contact => { %>
+    <% contacts.forEach( contact => { %>
       <tr>
         <!-- <td><%= contact.student_id %></td> -->
         <td><%= contact.student_name %></td>
@@ -90,6 +86,7 @@
       <% }) %>
     </tbody>
   </table>
+
   <script src="js/contacts/contacts.js" defer></script>
 </main>
 <!-- /Main -->

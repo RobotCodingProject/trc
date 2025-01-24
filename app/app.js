@@ -23,11 +23,12 @@ app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(errorhandler);
 app.use(methodOverride("_method"));
 
 app.use("/", home);
 app.use("/contacts", contacts);
 app.use("/schedule", schedule);
+
+app.use(errorhandler);
 
 module.exports = app;

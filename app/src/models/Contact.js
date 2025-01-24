@@ -81,13 +81,15 @@ class Contact {
     });
   }
 
-  static searchContacts(query, callback) {
-    const searchQuery = `
-      SELECT * FROM contacts 
-      WHERE student_name LIKE ? 
-    `;
-    const searchValue = `%${query}%`;
-    db.query(searchQuery, searchValue, callback);
+  // @desc Search contacts
+  static searchContacts(student_name) {
+    return new Promise((resolve, reject) => {
+      const query = "SELECT * FROM contacts WHERE student_name LIKE ?";
+      db.query(query, [student_name], (err, results) => {
+        if (err) reject(err);
+        else resolve(results);
+      });
+    });
   }
 }
 

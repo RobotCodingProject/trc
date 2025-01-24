@@ -155,41 +155,14 @@ const deleteContact = asyncHandler(async (req, res, next) => {
 // @desc Search contacts
 // @route GET /contacts/search
 const searchContacts = asyncHandler(async (req, res) => {
-  const { query } = req.query;
-
-  if (!query || query.trim() === "") {
-    // Redirect to contacts page if search is empty
-    return res.redirect("/contacts");
-  }
+  const query = req.query.query || ""; // Get the search query
 
   try {
-    const searchQuery = `
-      SELECT * FROM contacts 
-      WHERE student_name LIKE ?
-    `;
-    const searchValue = `%${query}%`;
-
-    console.log("Search Query:", searchQuery); // Log the query
-    console.log("Search Value:", searchValue); // Log the value
-
-    db.query(searchQuery, [searchValue], (err, contacts) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).send({ error: err.message });
-      }
-
-      if (contacts.length === 0) {
-        return res.render("contacts/index", {
-          contacts: [],
-          error: "No students found.",
-        });
-      }
-
-      res.render("contacts/index", { contacts });
-    });
-  } catch (error) {
-    console.error("Unexpected error:", error);
-    res.status(500).send({ error: error.message });
+    const results = await Contact.searchContacts(query); // Await the promise
+    res.render("contacts/index", { contacts: results, query });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error occurred while searching.");
   }
 });
 
@@ -202,12 +175,3 @@ module.exports = {
   addContactForm,
   searchContacts,
 };
-
-// module.exports = {
-//   getAllContacts,
-//   createContact,
-//   getContact,
-//   updateContact,
-//   deleteContact,
-//   addContactForm,
-// };
