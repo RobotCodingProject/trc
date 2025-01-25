@@ -15,6 +15,7 @@ const app = express();
 const home = require("./src/routes/home");
 const contacts = require("./src/routes/contacts/contacts");
 const schedule = require("./src/routes/schedule/schedule");
+const profile = require("./src/routes/profile/profile");
 
 // app setting
 app.set("views", "./src/views");
@@ -28,6 +29,7 @@ app.use(methodOverride("_method"));
 app.use("/", home);
 app.use("/contacts", contacts);
 app.use("/schedule", schedule);
+app.use("/profile", profile);
 
 app.use(errorhandler);
 
