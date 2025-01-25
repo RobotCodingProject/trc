@@ -1,0 +1,25 @@
+<%- include("../home/include/_header") %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="/css/profile/profile.css" />
+</head>
+<body>
+  <div class="profile-container">
+    <h1>User Profile</h1>
+    <img
+      src="/images/profile-placeholder.png"
+      alt="Profile Image"
+      class="profile-img"
+    />
+    <p><strong>Full Name:</strong> <%= profile.fullName %></p>
+    <p><strong>Username:</strong> <%= profile.username %></p>
+    <p><strong>Email:</strong> <%= profile.email %></p>
+    <p><strong>Contact Number:</strong> <%= profile.contactNumber %></p>
+    <p><strong>Availability:</strong> <%= profile.availability %></p>
+    <p><strong>Assigned Shift:</strong> <%= profile.assignedShift %></p>
+    <a href="/profile/edit" class="edit-btn">Edit Profile</a>
+  </div>
+</body>
+<%- include("../home/include/_footer") %>
