@@ -11,7 +11,7 @@ const getAllContacts = asyncHandler(async (req, res) => {
       if (err) {
         res.status(500).send({ error: err.message });
       } else {
-        res.render("contacts/index", { contacts });
+        res.render("contacts/index", { contacts, query: "" });
       }
     });
   } catch (error) {
@@ -155,15 +155,23 @@ const deleteContact = asyncHandler(async (req, res, next) => {
 // @desc Search contacts
 // @route GET /contacts/search
 const searchContacts = asyncHandler(async (req, res) => {
-  const query = req.query.query || ""; // Get the search query
+  const { query } = req.query;
 
-  try {
-    const results = await Contact.searchContacts(query); // Await the promise
-    res.render("contacts/index", { contacts: results, query });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error occurred while searching.");
+  if (!query || query.trim() === "") {
+    return res.redirect("/contacts");
   }
+
+  Contact.searchContacts(query, (err, contacts) => {
+    if (err || !contacts.length) {
+      res.render("contacts/index", {
+        contacts: [],
+        query,
+        error: "No results found",
+      });
+    } else {
+      res.render("contacts/index", { contacts, query });
+    }
+  });
 });
 
 module.exports = {
