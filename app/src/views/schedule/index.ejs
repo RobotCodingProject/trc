@@ -32,7 +32,7 @@
         <span>Category: </span>
         <input
           type="text"
-          placeholder="Enter category"
+          placeholder="Select category"
           list="categoryList"
           id="categoryInput"
         />
@@ -45,7 +45,13 @@
         <span>Time:</span>
         <input type="time" id="timeInput" />
         <span>Teacher:</span>
-        <input type="text" id="teacherInput" />
+        <div id="teacherCheckbox">
+          <label><input type="checkbox" value="Ben" /> Ben</label>
+          <label><input type="checkbox" value="Jenny" /> Jenny</label>
+          <label><input type="checkbox" value="Jisu" /> Jisu</label>
+          <label><input type="checkbox" value="Jayden" /> Jayden</label>
+          <label><input type="checkbox" value="Jin" /> Jin</label>
+        </div>
         <span></span>
         <button id="addBtn">Add</button>
         <span></span>
@@ -75,6 +81,7 @@
             <td>
               <select id="categoryFilter"></select>
             </td>
+            <td>Teacher</td>
             <td></td>
           </tr>
         </table>
@@ -114,7 +121,13 @@
         <span>Time:</span>
         <input type="time" id="schedule-edit-time" />
         <span>Teacher:</span>
-        <input type="text" id="schedule-edit-url" />
+        <div id="schedule-edit-teacher">
+          <label><input type="checkbox" value="Ben" /> Ben</label>
+          <label><input type="checkbox" value="Jenny" /> Jenny</label>
+          <label><input type="checkbox" value="Jisu" /> Jisu</label>
+          <label><input type="checkbox" value="Jayden" /> Jayden</label>
+          <label><input type="checkbox" value="Jin" /> Jin</label>
+        </div>
         <span></span>
         <button id="changeBtn">Save Change</button>
       </div>

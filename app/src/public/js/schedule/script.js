@@ -7,6 +7,7 @@ function scheduleMain() {
     inputElem2,
     dateInput,
     timeInput,
+    teacherCheckbox,
     addButton,
     sortButton,
     selectElem,
@@ -36,6 +37,7 @@ function scheduleMain() {
     inputElem2 = document.getElementsByTagName("input")[1];
     dateInput = document.getElementById("dateInput");
     timeInput = document.getElementById("timeInput");
+    teacherCheckbox = document.getElementById("teacherCheckbox");
     addButton = document.getElementById("addBtn");
     sortButton = document.getElementById("sortBtn");
     selectElem = document.getElementById("categoryFilter");
@@ -83,23 +85,23 @@ function scheduleMain() {
     let timeValue = timeInput.value;
     timeInput.value = "";
 
+    let teacherValue = teacherCheckbox.value;
+    teacherCheckbox.value = "";
+
     let obj = {
       id: _uuid(),
       schedule: inputValue,
       category: inputValue2,
       date: dateValue,
       time: timeValue,
+      teacher: teacherValue,
       done: false,
     };
 
     renderRow(obj);
-
     scheduleList.push(obj);
-
     save();
-
     updateSelectOptions();
-
     addEvent(obj);
   }
 
@@ -163,6 +165,7 @@ function scheduleMain() {
     id,
     date,
     time,
+    teacher,
     done,
   }) {
     // add a new row
@@ -199,8 +202,14 @@ function scheduleMain() {
     // category cell
     let tdElem3 = document.createElement("td");
     tdElem3.innerText = inputValue2;
-    tdElem3.className = "categoryCell";
+    // tdElem3.className = "categoryCell";
     trElem.appendChild(tdElem3);
+
+    // teacher cell
+    let teacherElem = document.createElement("td");
+    teacherElem.innerText = teacher;
+    // teacherElem.className = "teacherCell";
+    trElem.appendChild(teacherElem);
 
     // edit cell
     let editSpan = document.createElement("span");
@@ -236,11 +245,13 @@ function scheduleMain() {
     timeElem.dataset.type = "time";
     tdElem2.dataset.type = "schedule";
     tdElem3.dataset.type = "category";
+    teacherElem.dataset.type = "teacher";
 
     dateElem.dataset.id = id;
     timeElem.dataset.id = id;
     tdElem2.dataset.id = id;
     tdElem3.dataset.id = id;
+    teacherElem.dataset.id = id;
 
     function deleteItem() {
       trElem.remove();
@@ -416,7 +427,7 @@ function scheduleMain() {
         case "category":
           tempInputElem = document.createElement("input");
           tempInputElem.value = event.target.innerText;
-
+        case "teacher":
           break;
         default:
       }
@@ -485,6 +496,7 @@ function scheduleMain() {
     let category = document.getElementById("schedule-edit-category").value;
     let date = document.getElementById("schedule-edit-date").value;
     let time = document.getElementById("schedule-edit-time").value;
+    let teacher = document.getElementById("schedule-edit-teacher").value;
 
     // remove from calendar
     calendar.getEventById(id).remove();
@@ -497,6 +509,7 @@ function scheduleMain() {
           category: category,
           date: date,
           time: time,
+          teacher: teacher,
           done: false,
         };
 
@@ -525,6 +538,8 @@ function scheduleMain() {
           break;
         case "category":
           tdNodeList[i].innerText = category;
+        case "teacher":
+          tdNodeList[i].innerText = teacher;
           break;
       }
       //}
@@ -547,12 +562,13 @@ function scheduleMain() {
 
   function preFillEditForm(id) {
     let result = scheduleList.find((scheduleObj) => scheduleObj.id == id);
-    let { schedule, category, date, time } = result;
+    let { schedule, category, date, time, teacher } = result;
 
     document.getElementById("schedule-edit-schedule").value = schedule;
     document.getElementById("schedule-edit-category").value = category;
     document.getElementById("schedule-edit-date").value = date;
     document.getElementById("schedule-edit-time").value = time;
+    document.getElementById("schedule-edit-teacher").value = teacher;
 
     changeBtn.dataset.id = id;
   }
