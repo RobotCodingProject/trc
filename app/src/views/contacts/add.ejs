@@ -27,13 +27,13 @@
           <div class="col-12">
             <label for="student_name" class="col-form-label">Name</label>
             <div>
-              <input type="varchar(255)" class="form-control" name="student_name" id="student_name" placeholder="Student Name">
+              <input type="varchar(45)" class="form-control" name="student_name" id="student_name" placeholder="Student Name">
             </div>
           </div>
           <div class="col-12">
             <label for="school_name" class="col-form-label">School</label>
             <div>
-              <input type="varchar(255)" class="form-control" name="school_name" id="school_name" placeholder="School Name">
+              <input type="varchar(45)" class="form-control" name="school_name" id="school_name" placeholder="School Name">
             </div>
           </div>
           <div class="col-12">
@@ -45,19 +45,19 @@
           <div class="col-12">
             <label for="email" class="col-form-label">Email</label>
             <div>
-              <input type="varchar(255)" class="form-control" name="email" id="email" placeholder="user@trc.edu">
+              <input type="varchar(45)" class="form-control" name="email" id="email" placeholder="user@trc.edu">
             </div>
           </div>
           <div class="col-12">
             <label for="parent_name" class="col-form-label">Parent Name</label>
             <div>
-              <input type="varchar(255)" class="form-control" name="parent_name" id="parent_name" placeholder="Parent Name">
+              <input type="varchar(45)" class="form-control" name="parent_name" id="parent_name" placeholder="Parent Name">
             </div>
           </div>
           <div class="col-12">
             <label for="contact_number" class="col-form-label">Contact Number</label>
             <div>
-              <input type="varchar(255)" class="form-control" name="contact_number" id="contact_number" placeholder="0400000000">
+              <input type="varchar(45)" class="form-control" name="contact_number" id="contact_number" placeholder="0400000000">
             </div>
           </div>
           <div class="col-12">
@@ -75,7 +75,14 @@
           <div class="col-12">
             <label for="class_day" class="col-form-label">Class Day</label>
             <div>
-              <input type="enum" class="form-control" name="class_day" id="class_day" placeholder="Class Day">
+              <!-- <input type="enum" class="form-control" name="class_day" id="class_day" placeholder="Class Day"> -->
+              <label><input type="checkbox" name="class_day[]" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="class_day[]" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="class_day[]" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="class_day[]" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="class_day[]" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="class_day[]" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="class_day[]" value="Sunday"> Sunday</label>
             </div>
           </div>
           <div class="col-12">

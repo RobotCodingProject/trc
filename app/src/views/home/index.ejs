@@ -1,5 +1,9 @@
 <%- include("./include/_header") %>
 
+<head>
+  <link rel="stylesheet" href="css/schedule/style.css" />
+</head>
+
 <main>
   <section class="hero-without-image">
     <div class="container-2">
@@ -23,7 +27,15 @@
           class="gallery-block"
         >
           <h3>Weekly Calendar</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div
+            id="calendar"
+            style="
+              width: 100%;
+              max-width: 1200px;
+              margin: 0 auto;
+              padding-top: 40px;
+            "
+          ></div>
           <div class="gallery-features-block">
             <ul role="list" class="gallery-list w-list-unstyled">
               <li>
@@ -55,6 +67,7 @@
           id="w-node-ff26653d-c011-6694-8368-d2bcca58a388-fb5ef357"
           class="gallery-grid"
         ></div>
+        <!-- FullCalendar Container for Weekly View -->
       </div>
     </div>
   </section>
@@ -67,6 +80,27 @@
     crossorigin="anonymous"
   ></script>
   <script src="js/webflow.js" type="text/javascript"></script>
+
+  <!-- Weekly View -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var calendarEl = document.getElementById("calendar");
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: "timeGridWeek",
+        initialDate: new Date(),
+
+        events: [], // your events go here
+        editable: true,
+        slotMinTime: "09:00:00", // Time range starts at 9 AM
+        slotMaxTime: "19:00:00", // Time range ends at 7 PM
+      });
+
+      calendar.render();
+    });
+  </script>
 </main>
 
 <%- include("./include/_footer") %>

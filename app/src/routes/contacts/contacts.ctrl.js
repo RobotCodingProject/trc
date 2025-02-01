@@ -77,6 +77,7 @@ const getContact = asyncHandler(async (req, res) => {
       if (err || !contact) {
         res.status(404).send({ error: "Student not found" });
       } else {
+        contact.class_day = contact.class_day || [];
         res.render("contacts/update", { contact });
       }
     });
@@ -119,7 +120,7 @@ const updateContact = asyncHandler(async (req, res, next) => {
       contact_number,
       trial_date_time,
       ndis,
-      class_day,
+      class_day: class_day,
       class_time,
       // memo_note,
     });

@@ -439,6 +439,22 @@ ol {
   width: 100%;
 }
 
+/* login */
+.login-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
 @media screen and (max-width: 991px) {
   .container-2 {
     max-width: 728px;

@@ -12,7 +12,7 @@
 }
 
 .left-layout {
-  background-color: #89D0F8; 
+  background-color: #89d0f8;
   width: 50%;
   padding: 20px;
   text-align: center;
@@ -23,22 +23,21 @@
 
 .logo-container {
   margin-bottom: 50px;
-  
 }
 
 .logo-img {
-  width: 100px; 
+  width: 100px;
   margin-bottom: 20px;
 }
 
 .site-title {
   font-size: 2.5em;
-  font-family: 'Roboto', sans-serif; 
+  font-family: "Roboto", sans-serif;
   margin-bottom: 20px;
 }
 
 .description-img {
-  width: 60%; 
+  width: 60%;
   margin-bottom: 20px;
 }
 
@@ -52,11 +51,11 @@
 .description-text {
   font-size: 1em;
   color: #555;
-  font-family: 'Roboto', sans-serif; 
+  font-family: "Roboto", sans-serif;
 }
 
 .right-layout {
-  background-color: #fff; 
+  background-color: #fff;
   width: 50%;
   display: flex;
   justify-content: center;
@@ -75,10 +74,11 @@
 h2 {
   font-size: 2em;
   margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -90,7 +90,7 @@ input[type="text"], input[type="password"] {
 input[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #89D0F8;
+  background-color: #89d0f8;
   border: none;
   color: #fff;
   border-radius: 8px;
@@ -99,7 +99,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #89D0F8;
+  background-color: #89d0f8;
 }
 
 .create-account-link {
@@ -108,7 +108,7 @@ input[type="submit"]:hover {
 }
 
 .create-account-link a {
-  color: #89D0F8;
+  color: #89d0f8;
   font-size: 1em;
   text-decoration: none;
 }
@@ -117,13 +117,31 @@ input[type="submit"]:hover {
   text-decoration: underline;
 }
 
+/* login */
+p[type="button"] {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  width: 20%;
+}
+
+p[type="button"]:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .login-page-wrapper {
     flex-direction: column;
   }
 
-  .left-layout, .right-layout {
+  .left-layout,
+  .right-layout {
     width: 100%;
   }
 

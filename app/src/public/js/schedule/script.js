@@ -337,6 +337,8 @@ function scheduleMain() {
         omitZeroMinute: false,
         hour12: false,
       },
+      slotMinTime: "09:00:00",
+      slotMaxTime: "19:00:00",
     });
 
     calendar.render();
@@ -538,6 +540,7 @@ function scheduleMain() {
           break;
         case "category":
           tdNodeList[i].innerText = category;
+          break;
         case "teacher":
           tdNodeList[i].innerText = teacher;
           break;
