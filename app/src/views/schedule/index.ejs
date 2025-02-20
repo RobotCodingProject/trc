@@ -23,12 +23,6 @@
   <div class="schedule-grid-parent">
     <div>
       <div class="schedule-input schedule-block">
-        <span>Schedule: </span>
-        <input
-          type="text"
-          placeholder="Enter new schedule"
-          id="scheduleInputTextbox"
-        />
         <span>Category: </span>
         <input
           type="text"
@@ -39,6 +33,7 @@
         <datalist id="categoryList">
           <option value="Regular"></option>
           <option value="NDIS"></option>
+          <option value="Holiday"></option>
         </datalist>
         <span>Date:</span>
         <input type="date" id="dateInput" />
@@ -67,6 +62,8 @@
             Jisu</label
           ><br />
         </div>
+        <span>Memo: </span>
+        <input type="text" id="memoInput" />
         <span></span>
         <button id="addBtn">Add</button>
         <span></span>
@@ -92,12 +89,11 @@
             <td></td>
             <td>Date</td>
             <td>Time</td>
-            <td>Schedule</td>
-            <td>
-              <select id="categoryFilter"></select>
-            </td>
+            <td>Class</td>
             <td>Teacher</td>
-            <td></td>
+            <td>Memo</td>
+            <td>Edit</td>
+            <td>Delete</td>
           </tr>
         </table>
 
@@ -114,13 +110,7 @@
   <div class="schedule-overlay" id="schedule-overlay">
     <div class="schedule-modal" id="schedule-modal">
       <div class="schedule-input schedule-block">
-        <span>Schedule: </span>
-        <input
-          type="text"
-          placeholder="Enter new schedule"
-          id="schedule-edit-schedule"
-        />
-        <span>Category: </span>
+        <span>Class: </span>
         <input
           type="text"
           placeholder="Enter category"
@@ -130,6 +120,7 @@
         <datalist id="categoryList">
           <option value="Regular"></option>
           <option value="NDIS"></option>
+          <option value="Holiday"></option>
         </datalist>
         <span>Date:</span>
         <input type="date" id="schedule-edit-date" />
@@ -158,6 +149,8 @@
             Jisu</label
           ><br />
         </div>
+        <span>Memo: </span>
+        <input type="text" id="schedule-edit-memo" />
         <span></span>
         <button id="changeBtn">Save Change</button>
       </div>

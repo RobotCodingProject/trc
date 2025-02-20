@@ -3,14 +3,14 @@ scheduleMain();
 function scheduleMain() {
   const DEFAULT_OPTION = "Choose category";
 
-  let inputElem,
-    inputElem2,
+  let categoryInput,
     dateInput,
     timeInput,
     teacherCheckbox,
+    memoInput,
     addButton,
     sortButton,
-    selectElem,
+    // selectElem,
     scheduleList = [],
     calendar,
     shortlistBtn,
@@ -33,14 +33,14 @@ function scheduleMain() {
   updateSelectOptions();
 
   function getElements() {
-    inputElem = document.getElementsByTagName("input")[0];
-    inputElem2 = document.getElementsByTagName("input")[1];
+    categoryInput = document.getElementById("categoryInput");
+    memoInput = document.getElementById("memoInput");
     dateInput = document.getElementById("dateInput");
     timeInput = document.getElementById("timeInput");
     teacherCheckbox = document.getElementById("teacherCheckbox");
     addButton = document.getElementById("addBtn");
     sortButton = document.getElementById("sortBtn");
-    selectElem = document.getElementById("categoryFilter");
+    // selectElem = document.getElementById("categoryFilter");
     shortlistBtn = document.getElementById("shortlistBtn");
     changeBtn = document.getElementById("changeBtn");
     scheduleTable = document.getElementById("scheduleTable");
@@ -52,11 +52,10 @@ function scheduleMain() {
   function addListeners() {
     addButton.addEventListener("click", addEntry, false);
     sortButton.addEventListener("click", sortEntry, false);
-    selectElem.addEventListener("change", multipleFilter, false);
+    // selectElem.addEventListener("change", multipleFilter, false);
     shortlistBtn.addEventListener("change", multipleFilter, false);
 
     scheduleModalCloseBtn.addEventListener("click", closeEditModalBox, false);
-
     changeBtn.addEventListener("click", commitEdit, false);
 
     scheduleTable.addEventListener("dragstart", onDragstart, false);
@@ -64,7 +63,6 @@ function scheduleMain() {
     scheduleTable.addEventListener("dragover", onDragover, false);
 
     paginationCtnr.addEventListener("click", onPaginationBtnsClick, false);
-
     itemsPerPageSelectElem.addEventListener(
       "change",
       selectItemsPerPage,
@@ -73,11 +71,8 @@ function scheduleMain() {
   }
 
   function addEntry(event) {
-    let inputValue = inputElem.value;
-    inputElem.value = "";
-
-    let inputValue2 = inputElem2.value;
-    inputElem2.value = "";
+    let categoryValue = categoryInput.value;
+    categoryInput.value = "";
 
     let dateValue = dateInput.value;
     dateInput.value = "";
@@ -85,16 +80,19 @@ function scheduleMain() {
     let timeValue = timeInput.value;
     timeInput.value = "";
 
-    let teacherValue = teacherCheckbox.value;
+    let teacherValue = teacherCheckbox.checked;
     teacherCheckbox.value = "";
+
+    let memoValue = memoInput.value;
+    memoInput.value = "";
 
     let obj = {
       id: _uuid(),
-      schedule: inputValue,
-      category: inputValue2,
+      category: categoryValue,
       date: dateValue,
       time: timeValue,
       teacher: teacherValue,
+      memo: memoValue,
       done: false,
     };
 
@@ -114,19 +112,19 @@ function scheduleMain() {
 
     let optionsSet = new Set(options);
 
-    // empty the select options
-    selectElem.innerHTML = "";
+    // // empty the select options
+    // selectElem.innerHTML = "";
 
     let newOptionElem = document.createElement("option");
     newOptionElem.value = DEFAULT_OPTION;
     newOptionElem.innerText = DEFAULT_OPTION;
-    selectElem.appendChild(newOptionElem);
+    // selectElem.appendChild(newOptionElem);
 
     for (let option of optionsSet) {
       let newOptionElem = document.createElement("option");
       newOptionElem.value = option;
       newOptionElem.innerText = option;
-      selectElem.appendChild(newOptionElem);
+      // selectElem.appendChild(newOptionElem);
     }
   }
 
@@ -159,15 +157,7 @@ function scheduleMain() {
     });
   }
 
-  function renderRow({
-    schedule: inputValue,
-    category: inputValue2,
-    id,
-    date,
-    time,
-    teacher,
-    done,
-  }) {
+  function renderRow({ category, id, date, time, teacher, memo, done }) {
     // add a new row
 
     let trElem = document.createElement("tr");
@@ -194,22 +184,20 @@ function scheduleMain() {
     timeElem.innerText = time;
     trElem.appendChild(timeElem);
 
-    // schedule cell
-    let tdElem2 = document.createElement("td");
-    tdElem2.innerText = inputValue;
-    trElem.appendChild(tdElem2);
-
     // category cell
-    let tdElem3 = document.createElement("td");
-    tdElem3.innerText = inputValue2;
-    // tdElem3.className = "categoryCell";
-    trElem.appendChild(tdElem3);
+    let categoryElem = document.createElement("td");
+    categoryElem.innerText = category;
+    trElem.appendChild(categoryElem);
 
     // teacher cell
     let teacherElem = document.createElement("td");
     teacherElem.innerText = teacher;
-    // teacherElem.className = "teacherCell";
     trElem.appendChild(teacherElem);
+
+    // memo cell
+    let memoElem = document.createElement("td");
+    memoElem.innerText = memo;
+    trElem.appendChild(memoElem);
 
     // edit cell
     let editSpan = document.createElement("span");
@@ -227,12 +215,12 @@ function scheduleMain() {
     spanElem.className = "material-icons";
     spanElem.addEventListener("click", deleteItem, false);
     spanElem.dataset.id = id;
-    let tdElem4 = document.createElement("td");
-    tdElem4.appendChild(spanElem);
-    trElem.appendChild(tdElem4);
+    let tdElem3 = document.createElement("td");
+    tdElem3.appendChild(spanElem);
+    trElem.appendChild(tdElem3);
 
     // done button
-    checkboxElem.type = "checkbox";
+    // checkboxElem.type = "checkbox";
     checkboxElem.checked = done;
     if (done) {
       trElem.classList.add("strike");
@@ -241,17 +229,16 @@ function scheduleMain() {
     }
 
     dateElem.dataset.type = "date";
-    //dateElem.dataset.value = date;
     timeElem.dataset.type = "time";
-    tdElem2.dataset.type = "schedule";
-    tdElem3.dataset.type = "category";
+    categoryElem.dataset.type = "category";
     teacherElem.dataset.type = "teacher";
+    memoElem.dataset.type = "memo";
 
     dateElem.dataset.id = id;
     timeElem.dataset.id = id;
-    tdElem2.dataset.id = id;
-    tdElem3.dataset.id = id;
+    categoryElem.dataset.id = id;
     teacherElem.dataset.id = id;
+    memoElem.dataset.id = id;
 
     function deleteItem() {
       trElem.remove();
@@ -344,10 +331,10 @@ function scheduleMain() {
     calendar.render();
   }
 
-  function addEvent({ id, schedule, date, time, done }) {
+  function addEvent({ id, category, date, time, done }) {
     calendar.addEvent({
       id: id,
-      title: schedule,
+      title: category,
       start: time === "" ? date : `${date}T${time}`,
       backgroundColor: done ? "#ddd" : "#89d0f8",
     });
@@ -366,7 +353,7 @@ function scheduleMain() {
   function multipleFilter() {
     clearTable();
 
-    let selection = selectElem.value;
+    // let selection = selectElem.value;
 
     if (selection == DEFAULT_OPTION) {
       if (shortlistBtn.checked) {
@@ -425,11 +412,17 @@ function scheduleMain() {
           tempInputElem.type = "time";
           tempInputElem.value = event.target.innerText;
           break;
-        case "schedule":
         case "category":
           tempInputElem = document.createElement("input");
           tempInputElem.value = event.target.innerText;
+          break;
         case "teacher":
+          tempInputElem = document.createElement("input");
+          tempInputElem.value = event.target.innerText;
+          break;
+        case "memo":
+          tempInputElem = document.createElement("input");
+          tempInputElem.value = event.target.innerText;
           break;
         default:
       }
@@ -454,7 +447,7 @@ function scheduleMain() {
 
           addEvent({
             id: id,
-            title: scheduleObj.schedule,
+            title: scheduleObj.category,
             start: scheduleObj.date,
           });
         }
@@ -494,11 +487,11 @@ function scheduleMain() {
     closeEditModalBox();
 
     let id = event.target.dataset.id;
-    let schedule = document.getElementById("schedule-edit-schedule").value;
     let category = document.getElementById("schedule-edit-category").value;
     let date = document.getElementById("schedule-edit-date").value;
     let time = document.getElementById("schedule-edit-time").value;
     let teacher = document.getElementById("schedule-edit-teacher").value;
+    let memo = document.getElementById("schedule-edit-memo").value;
 
     // remove from calendar
     calendar.getEventById(id).remove();
@@ -507,11 +500,11 @@ function scheduleMain() {
       if (scheduleList[i].id == id) {
         scheduleList[i] = {
           id: id,
-          schedule: schedule,
           category: category,
           date: date,
           time: time,
           teacher: teacher,
+          memo: memo,
           done: false,
         };
 
@@ -535,14 +528,14 @@ function scheduleMain() {
         case "time":
           tdNodeList[i].innerText = time;
           break;
-        case "schedule":
-          tdNodeList[i].innerText = schedule;
-          break;
         case "category":
           tdNodeList[i].innerText = category;
           break;
         case "teacher":
           tdNodeList[i].innerText = teacher;
+          break;
+        case "memo":
+          tdNodeList[i].innerText = memo;
           break;
       }
       //}
@@ -565,13 +558,13 @@ function scheduleMain() {
 
   function preFillEditForm(id) {
     let result = scheduleList.find((scheduleObj) => scheduleObj.id == id);
-    let { schedule, category, date, time, teacher } = result;
+    let { category, memo, date, time, teacher } = result;
 
-    document.getElementById("schedule-edit-schedule").value = schedule;
     document.getElementById("schedule-edit-category").value = category;
     document.getElementById("schedule-edit-date").value = date;
     document.getElementById("schedule-edit-time").value = time;
     document.getElementById("schedule-edit-teacher").value = teacher;
+    document.getElementById("schedule-edit-memo").value = memo;
 
     changeBtn.dataset.id = id;
   }
