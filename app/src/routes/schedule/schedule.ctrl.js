@@ -43,13 +43,25 @@ const createSchedule = asyncHandler(async (req, res) => {
   const {
     // id,
     category,
-    date,
-    time,
+    start_date,
+    end_date,
+    start_time,
+    end_time,
+    all_day,
     teacher,
     memo,
   } = req.body;
 
-  if (!category || !date || !time || !teacher || !memo) {
+  if (
+    !category ||
+    !start_date ||
+    !end_date ||
+    !start_time ||
+    !end_time ||
+    !all_day ||
+    !teacher ||
+    !memo
+  ) {
     return res.status(400).send({ error: "Required fields are missing" });
   }
 
@@ -57,8 +69,11 @@ const createSchedule = asyncHandler(async (req, res) => {
     await Schedule.save({
       // id,
       category,
-      date,
-      time,
+      start_date,
+      end_date,
+      start_time,
+      end_time,
+      all_day,
       teacher,
       memo,
     });
@@ -89,9 +104,27 @@ const getSchedule = asyncHandler(async (req, res) => {
 // @route PUT /schedule/:id
 const updateSchedule = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { category, date, time, teacher, memo } = req.body;
+  const {
+    category,
+    start_date,
+    end_date,
+    start_time,
+    end_time,
+    all_day,
+    teacher,
+    memo,
+  } = req.body;
 
-  if (!category || !date || !time || !teacher || !memo) {
+  if (
+    !category ||
+    !start_date ||
+    !end_date ||
+    !start_time ||
+    !end_time ||
+    !all_day ||
+    !teacher ||
+    !memo
+  ) {
     const error = new Error("Required fields are missing");
     error.status = 400;
     return next(error);
@@ -101,8 +134,11 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
     const updatedSchedule = await Schedule.updatedSchedule(id, {
       // schedule_name,
       category,
-      date,
-      time,
+      start_date,
+      end_date,
+      start_time,
+      end_time,
+      all_day,
       teacher,
       memo,
     });

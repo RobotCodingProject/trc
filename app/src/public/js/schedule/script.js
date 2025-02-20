@@ -4,8 +4,10 @@ function scheduleMain() {
   const DEFAULT_OPTION = "Choose category";
 
   let categoryInput,
-    dateInput,
-    timeInput,
+    startDateInput,
+    endDateInput,
+    startTimeInput,
+    endTimeInput,
     teacherCheckbox,
     memoInput,
     addButton,
@@ -35,8 +37,10 @@ function scheduleMain() {
   function getElements() {
     categoryInput = document.getElementById("categoryInput");
     memoInput = document.getElementById("memoInput");
-    dateInput = document.getElementById("dateInput");
-    timeInput = document.getElementById("timeInput");
+    startDateInput = document.getElementById("startDateInput");
+    endDateInput = document.getElementById("endDateInput");
+    startTimeInput = document.getElementById("startTimeInput");
+    endTimeInput = document.getElementById("endTimeInput");
     teacherCheckbox = document.getElementById("teacherCheckbox");
     addButton = document.getElementById("addBtn");
     sortButton = document.getElementById("sortBtn");
@@ -74,11 +78,17 @@ function scheduleMain() {
     let categoryValue = categoryInput.value;
     categoryInput.value = "";
 
-    let dateValue = dateInput.value;
-    dateInput.value = "";
+    let startDateValue = startDateInput.value;
+    startDateInput.value = "";
 
-    let timeValue = timeInput.value;
-    timeInput.value = "";
+    let endDateValue = endDateInput.value;
+    endDateInput.value = "";
+
+    let startTimeValue = startTimeInput.value;
+    startTimeInput.value = "";
+
+    let endTimeValue = endTimeInput.value;
+    endTimeInput.value = "";
 
     let teacherValue = teacherCheckbox.checked;
     teacherCheckbox.value = "";
@@ -89,8 +99,10 @@ function scheduleMain() {
     let obj = {
       id: _uuid(),
       category: categoryValue,
-      date: dateValue,
-      time: timeValue,
+      startDate: startDateValue,
+      endDate: endDateValue,
+      startTime: startTimeValue,
+      endTime: endTimeValue,
       teacher: teacherValue,
       memo: memoValue,
       done: false,
@@ -157,7 +169,17 @@ function scheduleMain() {
     });
   }
 
-  function renderRow({ category, id, date, time, teacher, memo, done }) {
+  function renderRow({
+    category,
+    id,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    teacher,
+    memo,
+    done,
+  }) {
     // add a new row
 
     let trElem = document.createElement("tr");
@@ -176,12 +198,12 @@ function scheduleMain() {
 
     // date cell
     let dateElem = document.createElement("td");
-    dateElem.innerText = date; //formatDate(date);
+    dateElem.innerText = `${startDate} ~ ${endDate}`; //formatDate(date);
     trElem.appendChild(dateElem);
 
     // time cell
     let timeElem = document.createElement("td");
-    timeElem.innerText = time;
+    timeElem.innerText = `${startTime} ~ ${endTime}`;
     trElem.appendChild(timeElem);
 
     // category cell
@@ -241,6 +263,13 @@ function scheduleMain() {
     memoElem.dataset.id = id;
 
     function deleteItem() {
+      const isConfirmed = confirm(
+        "Confirm: do you want to delete this schedule?"
+      );
+      if (!isConfirmed) {
+        return;
+      }
+
       trElem.remove();
       updateSelectOptions();
 
@@ -331,11 +360,21 @@ function scheduleMain() {
     calendar.render();
   }
 
-  function addEvent({ id, category, date, time, done }) {
+  function addEvent({
+    id,
+    category,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    done,
+  }) {
     calendar.addEvent({
       id: id,
       title: category,
-      start: time === "" ? date : `${date}T${time}`,
+      // start: time === "" ? date : `${date}T${time}`,
+      start: startDate && startTime ? `${startDate}T${startTime}` : startDate,
+      end: endDate && endTime ? `${endDate}T${endTime}` : endDate,
       backgroundColor: done ? "#ddd" : "#89d0f8",
     });
   }
@@ -449,6 +488,7 @@ function scheduleMain() {
             id: id,
             title: scheduleObj.category,
             start: scheduleObj.date,
+            end: scheduleObj.date,
           });
         }
       });
@@ -488,8 +528,11 @@ function scheduleMain() {
 
     let id = event.target.dataset.id;
     let category = document.getElementById("schedule-edit-category").value;
-    let date = document.getElementById("schedule-edit-date").value;
-    let time = document.getElementById("schedule-edit-time").value;
+    let startDate = document.getElementById("schedule-edit-startDate").value;
+    let endDate = document.getElementById("schedule-edit-endDate").value;
+    let startTime = document.getElementById("schedule-edit-startTime").value;
+    let endTime = document.getElementById("schedule-edit-endTime").value;
+    let allDay = document.getElementById("schedule-edit-allDay").value;
     let teacher = document.getElementById("schedule-edit-teacher").value;
     let memo = document.getElementById("schedule-edit-memo").value;
 
@@ -501,8 +544,11 @@ function scheduleMain() {
         scheduleList[i] = {
           id: id,
           category: category,
-          date: date,
-          time: time,
+          startDate: startDate,
+          endDate: endDate,
+          startTime: startTime,
+          endTime: endTime,
+          allDay: allDay,
           teacher: teacher,
           memo: memo,
           done: false,
@@ -558,11 +604,23 @@ function scheduleMain() {
 
   function preFillEditForm(id) {
     let result = scheduleList.find((scheduleObj) => scheduleObj.id == id);
-    let { category, memo, date, time, teacher } = result;
+    let {
+      category,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      allDay,
+      teacher,
+      memo,
+    } = result;
 
     document.getElementById("schedule-edit-category").value = category;
-    document.getElementById("schedule-edit-date").value = date;
-    document.getElementById("schedule-edit-time").value = time;
+    document.getElementById("schedule-edit-startDate").value = startDate;
+    document.getElementById("schedule-edit-endDate").value = endDate;
+    document.getElementById("schedule-edit-startTime").value = startTime;
+    document.getElementById("schedule-edit-endTime").value = endTime;
+    document.getElementById("schedule-edit-allDay").value = allDay;
     document.getElementById("schedule-edit-teacher").value = teacher;
     document.getElementById("schedule-edit-memo").value = memo;
 

@@ -36,9 +36,18 @@
           <option value="Holiday"></option>
         </datalist>
         <span>Date:</span>
-        <input type="date" id="dateInput" />
+        <div class="date-input">
+          <input type="date" id="startDateInput" />
+          <span>~</span>
+          <input type="date" id="endDateInput" />
+        </div>
         <span>Time:</span>
-        <input type="time" id="timeInput" />
+        <div class="time-input">
+          <input type="time" id="startTimeInput" />
+          <span>~</span>
+          <input type="time" id="endTimeInput" />
+          <label> <input type="checkbox" id="allDay" /> All-day </label>
+        </div>
         <span>Teacher:</span>
         <div id="teacherCheckbox">
           <label
@@ -62,7 +71,7 @@
             Jisu</label
           ><br />
         </div>
-        <span>Memo: </span>
+        <span>Memo:</span>
         <input type="text" id="memoInput" />
         <span></span>
         <button id="addBtn">Add</button>
@@ -123,9 +132,20 @@
           <option value="Holiday"></option>
         </datalist>
         <span>Date:</span>
-        <input type="date" id="schedule-edit-date" />
+        <div class="date-input">
+          <input type="date" id="schedule-edit-startDate" />
+          <span>~</span>
+          <input type="date" id="schedule-edit-endDate" />
+        </div>
         <span>Time:</span>
-        <input type="time" id="schedule-edit-time" />
+        <div class="time-input">
+          <input type="time" id="schedule-edit-startTime" />
+          <span>~</span>
+          <input type="time" id="schedule-edit-endTime" />
+          <label>
+            <input type="checkbox" id="schedule-edit-allDay" /> All-day
+          </label>
+        </div>
         <span>Teacher:</span>
         <div id="schedule-edit-teacher">
           <label
