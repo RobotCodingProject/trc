@@ -12,28 +12,35 @@ class Contact {
     const query = "SELECT * FROM contacts WHERE student_id = ?";
     db.query(query, [id], (err, data) => {
       if (err) callback(err);
-      else callback(null, data[0]);
+      else {
+        // Split the comma-separated string back into an array
+        if (data[0] && data[0].class_day) {
+          data[0].class_day = data[0].class_day.split(", "); // Convert to array
+        }
+        callback(null, data[0]);
+      }
     });
   }
 
   static save(contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO contacts (student_name, school_name, school_year, email, parent_name, contact_number, trial_date_time, ndis, class_day, class_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO contacts (status, student_name, school_name, school_year, email, parent_name, contact_number, ndis, class_day, start_time, end_time, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
         query,
         [
+          contactInfo.status,
           contactInfo.student_name,
           contactInfo.school_name,
           contactInfo.school_year,
           contactInfo.email,
           contactInfo.parent_name,
           contactInfo.contact_number,
-          contactInfo.trial_date_time,
           contactInfo.ndis,
-          contactInfo.class_day,
-          contactInfo.class_time,
-          // contactInfo.memo_note,
+          contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
+          contactInfo.start_time,
+          contactInfo.end_time,
+          contactInfo.memo,
         ],
         (err, result) => {
           if (err) reject(err);
@@ -46,21 +53,22 @@ class Contact {
   static updateContact(student_id, contactInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE contacts SET student_name = ?, school_name = ?, school_year = ?, email = ?, parent_name = ?, contact_number = ?, trial_date_time = ?, ndis = ?, class_day = ?, class_time = ? WHERE student_id = ?";
+        "UPDATE contacts SET status = ?, student_name = ?, school_name = ?, school_year = ?, email = ?, parent_name = ?, contact_number = ?, ndis = ?, class_day = ?, start_time = ?, end_time = ?, memo =? WHERE student_id = ?";
       db.query(
         query,
         [
+          contactInfo.status,
           contactInfo.student_name,
           contactInfo.school_name,
           contactInfo.school_year,
           contactInfo.email,
           contactInfo.parent_name,
           contactInfo.contact_number,
-          contactInfo.trial_date_time,
           contactInfo.ndis,
-          contactInfo.class_day,
-          contactInfo.class_time,
-          // contactInfo.memo_note,
+          contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
+          contactInfo.start_time,
+          contactInfo.end_time,
+          contactInfo.memo,
           student_id,
         ],
         (err, result) => {
@@ -90,6 +98,17 @@ class Contact {
     db.query(searchQuery, [queryParam], (err, results) => {
       if (err) {
         console.error("Error executing search query:", err);
+        return callback(err, null);
+      }
+      callback(null, results);
+    });
+  }
+
+  static filterContactsByStatus(status, callback) {
+    const query = "SELECT * FROM contacts WHERE status = ?";
+    db.query(query, [status], (err, results) => {
+      if (err) {
+        console.error("Error executing filter query:", err);
         return callback(err, null);
       }
       callback(null, results);

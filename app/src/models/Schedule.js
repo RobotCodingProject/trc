@@ -19,16 +19,16 @@ class Schedule {
   static save(scheduleInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO schedule (category, start_date, end_date, start_time, end_time, all_day, teacher, memo,) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO schedule (category, start_date, end_date, all_day, start_time, end_time, teacher, memo,) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
         query,
         [
           scheduleInfo.category,
           scheduleInfo.start_date,
           scheduleInfo.end_date,
+          scheduleInfo.all_day,
           scheduleInfo.start_time,
           scheduleInfo.end_time,
-          scheduleInfo.all_day,
           scheduleInfo.teacher,
           scheduleInfo.memo,
         ],
@@ -43,16 +43,16 @@ class Schedule {
   static updateSchedule(id, scheduleInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE schedule SET category = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, all_day = ?, teacher = ?, memo = ? WHERE id = ?";
+        "UPDATE schedule SET category = ?, start_date = ?, end_date = ?, all_day = ?, start_time = ?, end_time = ?, teacher = ?, memo = ? WHERE id = ?";
       db.query(
         query,
         [
           scheduleInfo.category,
           scheduleInfo.start_date,
           scheduleInfo.end_date,
+          scheduleInfo.all_day,
           scheduleInfo.start_time,
           scheduleInfo.end_time,
-          scheduleInfo.all_day,
           scheduleInfo.teacher,
           scheduleInfo.memo,
           id,

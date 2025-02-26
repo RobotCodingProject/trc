@@ -18,7 +18,7 @@
       <input
         type="text"
         name="query"
-        value="<%= typeof query !== 'undefined' ? query : '' %>" 
+        value="<%= typeof query !== 'undefined' ? query : '' %>"
         placeholder="Search by student name"
         required
       />
@@ -28,7 +28,19 @@
       <!-- <input type="submit" value="Search"> -->
     </form>
   </div>
-  
+
+  <div class="filter-box">
+    <form method="GET" action="/contacts">
+      <label for="statusFilter">Filter by Status:</label>
+      <select name="status" id="statusFilter" onchange="this.form.submit()">
+        <option value="" <%= status === "" ? "selected" : "" %>>All</option>
+        <option value="enrolled" <%= status === "enrolled" ? "selected" : "" %>>Enrolled</option>
+        <option value="trial" <%= status === "trial" ? "selected" : "" %>>Trial</option>
+        <option value="hold" <%= status === "hold" ? "selected" : "" %>>Hold</option>
+      </select>
+    </form>
+    
+  </div>  
 
   <div class="button-box">
     <a href="/contacts/add" class="btn btn-light"
@@ -39,38 +51,42 @@
     <thead>
       <tr>
         <!-- <th>ID</th> -->
+        <th>Status</th>
         <th>Name</th>
         <th>School</th>
         <th>Year</th>
         <th>Email</th>
         <th>Parent Name</th>
-        <th>Contact Number</th>
-        <th>Trial</th>
+        <th>Contact No.</th>
         <th>NDIS</th>
         <th>Class Day</th>
         <th>Class Time</th>
-        <!-- <th>Memo</th> -->
+        <th>Memo</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
-    <% contacts.forEach( contact => { %>
+      <% contacts.forEach( contact => { %>
       <tr>
         <!-- <td><%= contact.student_id %></td> -->
+        <td><%= contact.status %></td>
         <td><%= contact.student_name %></td>
         <td><%= contact.school_name %></td>
         <td><%= contact.school_year %></td>
         <td><%= contact.email %></td>
         <td><%= contact.parent_name %></td>
         <td><%= contact.contact_number %></td>
-        <td><%= contact.trial_date_time %></td>
         <td><%= contact.ndis %></td>
         <td><%= contact.class_day %></td>
-        <td><%= contact.class_time %></td>
-        <!-- <td><%= contact.memo_note %></td> -->
+        <td><%= contact.start_time %> ~ <%= contact.end_time %></td>
+        <td><%= contact.memo %></td>
 
         <td>
-          <a href="/contacts/<%= contact.student_id %>" class="btn update" title="Edit">
+          <a
+            href="/contacts/<%= contact.student_id %>"
+            class="btn update"
+            title="Edit"
+          >
             <i class="fas fa-pencil-alt"></i>
           </a>
           <form
@@ -79,8 +95,7 @@
             style="display: inline"
             onsubmit="return confirmDelete()"
           >
-            <input type="submit" class="btn delete" title="Delete" value="X">
-            </button>
+            <input type="submit" class="btn delete" title="Delete" value="X" />
           </form>
         </td>
       </tr>

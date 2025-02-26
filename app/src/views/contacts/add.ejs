@@ -25,6 +25,16 @@
             </div>
           </div>
           <div class="col-12">
+            <label for="status" class="col-form-label">Status</label>
+            <div>
+              <select name="status" id="status" class="form-control" required>
+                <option value="enrolled">Enrolled</option>
+                <option value="trial">Trial</option>
+                <option value="hold">Hold</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12">
             <label for="student_name" class="col-form-label">Name</label>
             <div>
               <input type="varchar(45)" class="form-control" name="student_name" id="student_name" placeholder="Student Name">
@@ -60,16 +70,19 @@
               <input type="varchar(45)" class="form-control" name="contact_number" id="contact_number" placeholder="0400000000">
             </div>
           </div>
-          <div class="col-12">
+          <!-- <div class="col-12">
             <label for="trial_date_time" class="col-form-label">Trial</label>
             <div>
               <input type="datetime" class="form-control" name="trial_date_time" id="trial_date_time" placeholder="2025-01-20 14:00:00">
             </div>
-          </div>
+          </div> -->
           <div class="col-12">
             <label for="ndis" class="col-form-label">NDIS</label>
             <div>
-              <input type="enum" class="form-control" name="ndis" id="ndis" placeholder="Yes or No">
+              <select name="status" id="status" class="form-control">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
             </div>
           </div>
           <div class="col-12">
@@ -86,17 +99,23 @@
             </div>
           </div>
           <div class="col-12">
-            <label for="class_time" class="col-form-label">Class Time</label>
+            <label for="start_time" class="col-form-label">Class Start Time</label>
             <div>
-              <input type="time" class="form-control" name="class_time" id="class_time" placeholder="00:00PM-00:00PM">
+              <input type="time" class="form-control" name="start_time" id="start_time">
             </div>
           </div>
-          <!-- <div class="col-12">
-            <label for="memo_note" class="col-form-label">Memo</label>
+          <div class="col-12">
+            <label for="end_time" class="col-form-label">Class End Time</label>
             <div>
-              <input type="text" class="form-control" name="memo_note" id="memo_note" placeholder="Memo">
+              <input type="time" class="form-control" name="end_time" id="end_time">
             </div>
-          </div> -->
+          </div>
+          <div class="col-12">
+            <label for="memo" class="col-form-label">Memo</label>
+            <div>
+              <input type="text" class="form-control" name="memo" id="memo" placeholder="Memo">
+            </div>
+          </div>
           <button type="submit">Save</button>
         </div>
       </form>   

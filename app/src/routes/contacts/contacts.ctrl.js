@@ -5,15 +5,30 @@ const Contact = require("../../models/Contact");
 
 // @desc Get all contacts
 // @route GET /contacts
+
 const getAllContacts = asyncHandler(async (req, res) => {
   try {
-    Contact.getAllContacts((err, contacts) => {
-      if (err) {
-        res.status(500).send({ error: err.message });
-      } else {
-        res.render("contacts/index", { contacts, query: "" });
-      }
-    });
+    const status = req.query.status || ""; // 쿼리에서 status 값 가져오기, 없으면 빈 문자열로 설정
+
+    // status 값이 있을 경우 필터링된 연락처를 가져오고, 없으면 모든 연락처를 가져옴
+    if (status) {
+      Contact.filterContactsByStatus(status, (err, contacts) => {
+        if (err) {
+          res.status(500).send({ error: err.message });
+        } else {
+          res.render("contacts/index", { contacts, query: "", status });
+        }
+      });
+    } else {
+      // status가 없는 경우, 모든 연락처를 가져옵니다.
+      Contact.getAllContacts((err, contacts) => {
+        if (err) {
+          res.status(500).send({ error: err.message });
+        } else {
+          res.render("contacts/index", { contacts, query: "", status });
+        }
+      });
+    }
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -30,37 +45,39 @@ const addContactForm = asyncHandler((req, res) => {
 const createContact = asyncHandler(async (req, res) => {
   const {
     // id,
+    status,
     student_name,
     school_name,
     school_year,
     email,
     parent_name,
     contact_number,
-    trial_date_time,
     ndis,
     class_day,
-    class_time,
-    // memo_note,
+    start_time,
+    end_time,
+    memo,
   } = req.body;
 
-  if (!student_name || !contact_number) {
+  if (!student_name) {
     return res.status(400).send({ error: "Required fields are missing" });
   }
 
   try {
     await Contact.save({
       // id,
+      status,
       student_name,
       school_name,
       school_year,
       email,
       parent_name,
       contact_number,
-      trial_date_time,
       ndis,
       class_day,
-      class_time,
-      // memo_note,
+      start_time,
+      end_time,
+      memo,
     });
     res.redirect("/contacts");
   } catch (err) {
@@ -91,20 +108,21 @@ const getContact = asyncHandler(async (req, res) => {
 const updateContact = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const {
+    status,
     student_name,
     school_name,
     school_year,
     email,
     parent_name,
     contact_number,
-    trial_date_time,
     ndis,
     class_day,
-    class_time,
-    // memo_note,
+    start_time,
+    end_time,
+    memo,
   } = req.body;
 
-  if (!student_name || !contact_number) {
+  if (!student_name) {
     const error = new Error("Required fields are missing");
     error.status = 400;
     return next(error);
@@ -112,17 +130,18 @@ const updateContact = asyncHandler(async (req, res, next) => {
 
   try {
     const updatedContact = await Contact.updateContact(id, {
+      status,
       student_name,
       school_name,
       school_year,
       email,
       parent_name,
       contact_number,
-      trial_date_time,
       ndis,
-      class_day: class_day,
-      class_time,
-      // memo_note,
+      class_day,
+      start_time,
+      end_time,
+      memo,
     });
     if (!updatedContact) {
       const error = new Error("Student not found");

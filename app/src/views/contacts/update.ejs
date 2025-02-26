@@ -22,8 +22,8 @@
     method="POST"
     id="add-user"
   >
-    <!-- <div class="user-info">
-      <div class="col-12">
+    <div class="user-info">
+      <!-- <div class="col-12">
         <label for="student_id" class="col-form-label">Student ID</label>
         <div>
           <input
@@ -35,6 +35,16 @@
           />
         </div>
       </div> -->
+      <div class="col-12">
+        <label for="status" class="col-form-label">Status</label>
+        <div>
+          <select name="status" id="status" class="form-control" required>
+            <option value="enrolled">Enrolled</option>
+            <option value="trial">Trial</option>
+            <option value="hold">Hold</option>
+          </select>
+        </div>
+      </div>
       <div class="col-12">
         <label for="student_name" class="col-form-label">Name</label>
         <div>
@@ -59,7 +69,6 @@
           />
         </div>
       </div>
-
       <div class="col-12">
         <label for="school_year" class="col-form-label">Year</label>
         <div>
@@ -72,7 +81,6 @@
           />
         </div>
       </div>
-
       <div class="col-12">
         <label for="email" class="col-form-label">Email</label>
         <div>
@@ -85,7 +93,6 @@
           />
         </div>
       </div>
-
       <div class="col-12">
         <label for="parent_name" class="col-form-label">Parent Name</label>
         <div>
@@ -97,86 +104,103 @@
             value="<%= contact.parent_name %>"
           />
         </div>
+      </div>
+      <div class="col-12">
+        <label for="contact_number" class="col-form-label"
+          >Contact Number</label
+        >
+        <div>
+          <input
+            type="varchar(45)"
+            class="form-control"
+            name="contact_number"
+            id="contact_number"
+            value="<%= contact.contact_number %>"
+          />
+        </div>
+      </div>
+      <!-- <div class="col-12">
+      <label for="trial_date_time" class="col-form-label">Trial</label>
+      <div>
+        <input
+            type="datetime"
+            class="form-control"
+            name="trial_date_time"
+            id="trial_date_time"
+            value="<%= contact.trial_date_time %>"
+          />
+      </div>
+    </div> -->
+      <div class="col-12">
+        <label for="ndis" class="col-form-label">NDIS</label>
+        <div>
+          <select name="ndis" id="ndis" class="form-control" required>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="class_day" class="col-form-label">Class Day</label>
+        <div>
+          <!-- <input
+          type="enum"
+          class="form-control"
+          name="class_day"
+          id="class_day"
+          value="<%= contact.class_day %>"
+        /> -->
+          <input type="checkbox" name="class_day" value="Monday" <%=
+          contact.class_day.includes('Monday') ? 'checked' : '' %> /> Monday
+          <input type="checkbox" name="class_day" value="Tuesday" <%=
+          contact.class_day.includes('Tuesday') ? 'checked' : '' %> /> Tuesday
+          <input type="checkbox" name="class_day" value="Wednesday" <%=
+          contact.class_day.includes('Wednesday') ? 'checked' : '' %> />
+          Wednesday <input type="checkbox" name="class_day" value="Thursday" <%=
+          contact.class_day.includes('Thursday') ? 'checked' : '' %> /> Thursday
+          <input type="checkbox" name="class_day" value="Friday" <%=
+          contact.class_day.includes('Friday') ? 'checked' : '' %> /> Friday
+          <input type="checkbox" name="class_day" value="Saturday" <%=
+          contact.class_day.includes('Saturday') ? 'checked' : '' %> /> Saturday
+          <input type="checkbox" name="class_day" value="Sunday" <%=
+          contact.class_day.includes('Sunday') ? 'checked' : '' %> /> Sunday
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="start_time" class="col-form-label">Class Start Time</label>
+        <div>
+          <input
+            type="time"
+            class="form-control"
+            name="start_time"
+            id="start_time"
+          />
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="end_time" class="col-form-label">Class End Time</label>
+        <div>
+          <input
+            type="time"
+            class="form-control"
+            name="end_time"
+            id="end_time"
+          />
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="memo" class="col-form-label">Memo</label>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            name="memo"
+            id="memo"
+            value="<%= contact.memo %>"
+          />
+        </div>
+      </div>
 
-        <div class="col-12">
-          <label for="contact_number" class="col-form-label">Contact Number</label>
-          <div>
-            <input
-              type="varchar(45)"
-              class="form-control"
-              name="contact_number"
-              id="contact_number"
-              value="<%= contact.contact_number %>"
-            />
-          </div>
-
-          <div class="col-12">
-            <label for="trial_date_time" class="col-form-label">Trial</label>
-            <div>
-              <input
-                type="datetime"
-                class="form-control"
-                name="trial_date_time"
-                id="trial_date_time"
-                value="<%= contact.trial_date_time %>"
-              />
-            </div>
-            
-            <div class="col-12">
-              <label for="ndis" class="col-form-label">NDIS</label>
-              <div>
-                <input
-                  type="enum"
-                  class="form-control"
-                  name="ndis"
-                  id="ndis"
-                  value="<%= contact.ndis %>"
-                />
-              </div>
-            
-              <div class="col-12">
-                <label for="class_day" class="col-form-label">Class Day</label>
-                <div>
-                  <!-- <input
-                    type="enum"
-                    class="form-control"
-                    name="class_day"
-                    id="class_day"
-                    value="<%= contact.class_day %>"
-                  /> -->
-                  <input type="checkbox" name="class_day" value="Monday" <%= contact.class_day.includes('Monday') ? 'checked' : '' %> /> Monday
-                  <input type="checkbox" name="class_day" value="Tuesday" <%= contact.class_day.includes('Tuesday') ? 'checked' : '' %> /> Tuesday
-                  <input type="checkbox" name="class_day" value="Wednesday" <%= contact.class_day.includes('Wednesday') ? 'checked' : '' %> /> Wednesday
-                  <input type="checkbox" name="class_day" value="Thursday" <%= contact.class_day.includes('Thursday') ? 'checked' : '' %> /> Thursday
-                  <input type="checkbox" name="class_day" value="Friday" <%= contact.class_day.includes('Friday') ? 'checked' : '' %> /> Friday
-                  <input type="checkbox" name="class_day" value="Saturday" <%= contact.class_day.includes('Saturday') ? 'checked' : '' %> /> Saturday
-                  <input type="checkbox" name="class_day" value="Sunday" <%= contact.class_day.includes('Sunday') ? 'checked' : '' %> /> Sunday
-                </div>
-
-                <div class="col-12">
-                  <label for="class_time" class="col-form-label">Class Time</label>
-                  <div>
-                    <input
-                      type="time"
-                      class="form-control"
-                      name="class_time"
-                      id="class_time"
-                      value="<%= contact.class_time %>"
-                    />
-                  </div>
-
-                  <!-- <div class="col-12">
-                    <label for="memo_note" class="col-form-label">Memo</label>
-                    <div>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="memo_note"
-                        id="memo_note"
-                        value="<%= contact.memo_note %>"
-                      />
-                    </div> -->
-               
       <button type="submit">Save</button>
     </div>
   </form>

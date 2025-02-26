@@ -1,11 +1,12 @@
 scheduleMain();
 
 function scheduleMain() {
-  const DEFAULT_OPTION = "Choose category";
+  const DEFAULT_OPTION = "Select category";
 
   let categoryInput,
     startDateInput,
     endDateInput,
+    allDayCheckbox,
     startTimeInput,
     endTimeInput,
     teacherCheckbox,
@@ -32,13 +33,14 @@ function scheduleMain() {
   initCalendar();
   load();
   renderRows(scheduleList);
-  updateSelectOptions();
+  // updateSelectOptions();
 
   function getElements() {
     categoryInput = document.getElementById("categoryInput");
     memoInput = document.getElementById("memoInput");
     startDateInput = document.getElementById("startDateInput");
     endDateInput = document.getElementById("endDateInput");
+    allDayCheckbox = document.getElementById("allDayCheckbox");
     startTimeInput = document.getElementById("startTimeInput");
     endTimeInput = document.getElementById("endTimeInput");
     teacherCheckbox = document.getElementById("teacherCheckbox");
@@ -84,14 +86,27 @@ function scheduleMain() {
     let endDateValue = endDateInput.value;
     endDateInput.value = "";
 
-    let startTimeValue = startTimeInput.value;
+    let allDayValue = allDayCheckbox.checked;
+    allDayCheckbox.checked = false;
+
+    let startTimeValue = allDayValue ? "" : startTimeInput.value;
     startTimeInput.value = "";
 
-    let endTimeValue = endTimeInput.value;
+    let endTimeValue = allDayValue ? "" : endTimeInput.value;
     endTimeInput.value = "";
 
-    let teacherValue = teacherCheckbox.checked;
-    teacherCheckbox.value = "";
+    // let teacherValue = teacherCheckbox.checked;
+    // teacherCheckbox.checked = false;
+    let teacherValue = [];
+    let teacherCheckbox = document.querySelectorAll(".teacherCheckbox");
+    teacherCheckbox.forEach((checkbox) => {
+      if (checkbox.checked) {
+        teacherValue.push(checkbox.value);
+      }
+    });
+    teacherCheckbox.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
 
     let memoValue = memoInput.value;
     memoInput.value = "";
@@ -101,9 +116,10 @@ function scheduleMain() {
       category: categoryValue,
       startDate: startDateValue,
       endDate: endDateValue,
+      allDay: allDayValue,
       startTime: startTimeValue,
       endTime: endTimeValue,
-      teacher: teacherValue,
+      teacher: teacherValue.join(", "),
       memo: memoValue,
       done: false,
     };
@@ -111,34 +127,34 @@ function scheduleMain() {
     renderRow(obj);
     scheduleList.push(obj);
     save();
-    updateSelectOptions();
+    // updateSelectOptions();
     addEvent(obj);
   }
 
-  function updateSelectOptions() {
-    let options = [];
+  // function updateSelectOptions() {
+  //   let options = [];
 
-    scheduleList.forEach((obj) => {
-      options.push(obj.category);
-    });
+  //   scheduleList.forEach((obj) => {
+  //     options.push(obj.category);
+  //   });
 
-    let optionsSet = new Set(options);
+  //   let optionsSet = new Set(options);
 
-    // // empty the select options
-    // selectElem.innerHTML = "";
+  //   // // empty the select options
+  //   // selectElem.innerHTML = "";
 
-    let newOptionElem = document.createElement("option");
-    newOptionElem.value = DEFAULT_OPTION;
-    newOptionElem.innerText = DEFAULT_OPTION;
-    // selectElem.appendChild(newOptionElem);
+  //   let newOptionElem = document.createElement("option");
+  //   newOptionElem.value = DEFAULT_OPTION;
+  //   newOptionElem.innerText = DEFAULT_OPTION;
+  //   // selectElem.appendChild(newOptionElem);
 
-    for (let option of optionsSet) {
-      let newOptionElem = document.createElement("option");
-      newOptionElem.value = option;
-      newOptionElem.innerText = option;
-      // selectElem.appendChild(newOptionElem);
-    }
-  }
+  //   for (let option of optionsSet) {
+  //     let newOptionElem = document.createElement("option");
+  //     newOptionElem.value = option;
+  //     newOptionElem.innerText = option;
+  //     // selectElem.appendChild(newOptionElem);
+  //   }
+  // }
 
   function save() {
     let stringified = JSON.stringify(scheduleList);
@@ -174,6 +190,7 @@ function scheduleMain() {
     id,
     startDate,
     endDate,
+    allDay,
     startTime,
     endTime,
     teacher,
@@ -190,8 +207,9 @@ function scheduleMain() {
     // checkbox cell
     let checkboxElem = document.createElement("input");
     checkboxElem.type = "checkbox";
-    checkboxElem.addEventListener("click", checkboxClickCallback, false);
     checkboxElem.dataset.id = id;
+    checkboxElem.addEventListener("click", checkboxClickCallback, false);
+
     let tdElem1 = document.createElement("td");
     tdElem1.appendChild(checkboxElem);
     trElem.appendChild(tdElem1);
@@ -200,10 +218,15 @@ function scheduleMain() {
     let dateElem = document.createElement("td");
     dateElem.innerText = `${startDate} ~ ${endDate}`; //formatDate(date);
     trElem.appendChild(dateElem);
+    dateElem.addEventListener("click", onDateClick, false);
+
+    function onDateClick(e) {
+      calendar.gotoDate(e.target.innerText);
+    }
 
     // time cell
     let timeElem = document.createElement("td");
-    timeElem.innerText = `${startTime} ~ ${endTime}`;
+    timeElem.innerText = allDay ? "All-day" : `${startTime} ~ ${endTime}`;
     trElem.appendChild(timeElem);
 
     // category cell
@@ -242,7 +265,7 @@ function scheduleMain() {
     trElem.appendChild(tdElem3);
 
     // done button
-    // checkboxElem.type = "checkbox";
+    checkboxElem.type = "checkbox";
     checkboxElem.checked = done;
     if (done) {
       trElem.classList.add("strike");
@@ -271,7 +294,7 @@ function scheduleMain() {
       }
 
       trElem.remove();
-      updateSelectOptions();
+      // updateSelectOptions();
 
       for (let i = 0; i < scheduleList.length; i++) {
         if (scheduleList[i].id == this.dataset.id) scheduleList.splice(i, 1);
@@ -393,48 +416,46 @@ function scheduleMain() {
     clearTable();
 
     // let selection = selectElem.value;
+    if (shortlistBtn.checked) {
+      let resultArray = [];
 
-    if (selection == DEFAULT_OPTION) {
-      if (shortlistBtn.checked) {
-        let resultArray = [];
-
-        let filteredIncompleteArray = scheduleList.filter(
-          (obj) => obj.done == false
-        );
-        //renderRows(filteredIncompleteArray);
-
-        let filteredDoneArray = scheduleList.filter((obj) => obj.done == true);
-        //renderRows(filteredDoneArray);
-
-        resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
-        renderRows(resultArray);
-      } else {
-        renderRows(scheduleList);
-      }
-    } else {
-      let filteredCategoryArray = scheduleList.filter(
-        (obj) => obj.category == selection
+      let filteredIncompleteArray = scheduleList.filter(
+        (obj) => obj.done == false
       );
+      //renderRows(filteredIncompleteArray);
 
-      if (shortlistBtn.checked) {
-        let resultArray = [];
+      let filteredDoneArray = scheduleList.filter((obj) => obj.done == true);
+      //renderRows(filteredDoneArray);
 
-        let filteredIncompleteArray = filteredCategoryArray.filter(
-          (obj) => obj.done == false
-        );
-        //renderRows(filteredIncompleteArray);
-
-        let filteredDoneArray = filteredCategoryArray.filter(
-          (obj) => obj.done == true
-        );
-        //renderRows(filteredDoneArray);
-
-        resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
-        renderRows(resultArray);
-      } else {
-        renderRows(filteredCategoryArray);
-      }
+      resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
+      renderRows(resultArray);
+    } else {
+      renderRows(scheduleList);
     }
+    // } else {
+    //   let filteredCategoryArray = scheduleList.filter(
+    //     (obj) => obj.category == selection
+    //   );
+
+    //   if (shortlistBtn.checked) {
+    //     let resultArray = [];
+
+    //     let filteredIncompleteArray = filteredCategoryArray.filter(
+    //       (obj) => obj.done == false
+    //     );
+    //     //renderRows(filteredIncompleteArray);
+
+    //     let filteredDoneArray = filteredCategoryArray.filter(
+    //       (obj) => obj.done == true
+    //     );
+    //     //renderRows(filteredDoneArray);
+
+    //     resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
+    //     renderRows(resultArray);
+    //   } else {
+    //     renderRows(filteredCategoryArray);
+    //   }
+    // }
   }
 
   function onTableClicked(event) {
@@ -530,9 +551,9 @@ function scheduleMain() {
     let category = document.getElementById("schedule-edit-category").value;
     let startDate = document.getElementById("schedule-edit-startDate").value;
     let endDate = document.getElementById("schedule-edit-endDate").value;
+    let allDay = document.getElementById("schedule-edit-allDay").value;
     let startTime = document.getElementById("schedule-edit-startTime").value;
     let endTime = document.getElementById("schedule-edit-endTime").value;
-    let allDay = document.getElementById("schedule-edit-allDay").value;
     let teacher = document.getElementById("schedule-edit-teacher").value;
     let memo = document.getElementById("schedule-edit-memo").value;
 
@@ -546,9 +567,9 @@ function scheduleMain() {
           category: category,
           startDate: startDate,
           endDate: endDate,
+          allDay: allDay,
           startTime: startTime,
           endTime: endTime,
-          allDay: allDay,
           teacher: teacher,
           memo: memo,
           done: false,
@@ -608,9 +629,9 @@ function scheduleMain() {
       category,
       startDate,
       endDate,
+      allDay,
       startTime,
       endTime,
-      allDay,
       teacher,
       memo,
     } = result;
@@ -618,9 +639,9 @@ function scheduleMain() {
     document.getElementById("schedule-edit-category").value = category;
     document.getElementById("schedule-edit-startDate").value = startDate;
     document.getElementById("schedule-edit-endDate").value = endDate;
+    document.getElementById("schedule-edit-allDay").value = allDay;
     document.getElementById("schedule-edit-startTime").value = startTime;
     document.getElementById("schedule-edit-endTime").value = endTime;
-    document.getElementById("schedule-edit-allDay").value = allDay;
     document.getElementById("schedule-edit-teacher").value = teacher;
     document.getElementById("schedule-edit-memo").value = memo;
 

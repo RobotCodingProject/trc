@@ -46,28 +46,28 @@
           <input type="time" id="startTimeInput" />
           <span>~</span>
           <input type="time" id="endTimeInput" />
-          <label> <input type="checkbox" id="allDay" /> All-day </label>
+          <label> <input type="checkbox" id="allDayCheckbox" /> All-day </label>
         </div>
         <span>Teacher:</span>
-        <div id="teacherCheckbox">
+        <div class="teacher-input">
           <label
-            ><input type="checkbox" name="teacherCheckbox[]" value="Ben" />
+            ><input type="checkbox" class="teacherCheckbox" value="Ben" />
             Ben</label
           ><br />
           <label
-            ><input type="checkbox" name="teacherCheckbox[]" value="Jayden" />
+            ><input type="checkbox" class="teacherCheckbox" value="Jayden" />
             Jayden</label
           ><br />
           <label
-            ><input type="checkbox" name="teacherCheckbox[]" value="Jenny" />
+            ><input type="checkbox" class="teacherCheckbox" value="Jenny" />
             Jenny</label
           ><br />
           <label
-            ><input type="checkbox" name="teacherCheckbox[]" value="Jin" />
+            ><input type="checkbox" class="teacherCheckbox" value="Jin" />
             Jin</label
           ><br />
           <label
-            ><input type="checkbox" name="teacherCheckbox[]" value="Jisu" />
+            ><input type="checkbox" class="teacherCheckbox" value="Jisu" />
             Jisu</label
           ><br />
         </div>
@@ -178,7 +178,7 @@
     <div class="schedule-modal-close-btn" id="schedule-modal-close-btn">X</div>
   </div>
 
-  <script src="js/schedule/script.js" defer></script>
+  <script src="js/schedule/script.js"></script>
 </body>
 
 <%- include("../home/include/_footer") %>
