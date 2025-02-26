@@ -551,10 +551,22 @@ function scheduleMain() {
     let category = document.getElementById("schedule-edit-category").value;
     let startDate = document.getElementById("schedule-edit-startDate").value;
     let endDate = document.getElementById("schedule-edit-endDate").value;
-    let allDay = document.getElementById("schedule-edit-allDay").value;
-    let startTime = document.getElementById("schedule-edit-startTime").value;
-    let endTime = document.getElementById("schedule-edit-endTime").value;
-    let teacher = document.getElementById("schedule-edit-teacher").value;
+    let allDay = document.getElementById("schedule-edit-allDay").checked;
+    let startTime = allDay
+      ? ""
+      : document.getElementById("schedule-edit-startTime").value;
+    let endTime = allDay
+      ? ""
+      : document.getElementById("schedule-edit-endTime").value;
+
+    let teacher = [];
+    let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
+    teacherCheckbox.forEach((checkbox) => {
+      if (checkbox.checked) {
+        teacher.push(checkbox.value);
+      }
+    });
+
     let memo = document.getElementById("schedule-edit-memo").value;
 
     // remove from calendar
@@ -570,7 +582,7 @@ function scheduleMain() {
           allDay: allDay,
           startTime: startTime,
           endTime: endTime,
-          teacher: teacher,
+          teacher: teacher.join(", "),
           memo: memo,
           done: false,
         };
@@ -590,16 +602,21 @@ function scheduleMain() {
       let type = tdNodeList[i].dataset.type;
       switch (type) {
         case "date":
-          tdNodeList[i].innerText = formatDate(date);
+          // tdNodeList[i].innerText = formatDate(date);
+          tdNodeList[i].innerText = `${startDate} ~ ${endDate}`;
           break;
         case "time":
-          tdNodeList[i].innerText = time;
+          // tdNodeList[i].innerText = time;
+          tdNodeList[i].innerText = allDay
+            ? "All-day"
+            : `${startTime} ~ ${endTime}`;
           break;
         case "category":
           tdNodeList[i].innerText = category;
           break;
         case "teacher":
-          tdNodeList[i].innerText = teacher;
+          // tdNodeList[i].innerText = teacher;
+          tdNodeList[i].innerText = teacher.join(", ");
           break;
         case "memo":
           tdNodeList[i].innerText = memo;
@@ -639,10 +656,15 @@ function scheduleMain() {
     document.getElementById("schedule-edit-category").value = category;
     document.getElementById("schedule-edit-startDate").value = startDate;
     document.getElementById("schedule-edit-endDate").value = endDate;
-    document.getElementById("schedule-edit-allDay").value = allDay;
+    document.getElementById("schedule-edit-allDay").checked = allDay;
     document.getElementById("schedule-edit-startTime").value = startTime;
     document.getElementById("schedule-edit-endTime").value = endTime;
-    document.getElementById("schedule-edit-teacher").value = teacher;
+
+    let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
+    teacherCheckbox.forEach((checkbox) => {
+      checkbox.checked = teacher.includes(checkbox.value);
+    });
+
     document.getElementById("schedule-edit-memo").value = memo;
 
     changeBtn.dataset.id = id;
