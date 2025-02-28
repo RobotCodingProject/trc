@@ -131,31 +131,6 @@ function scheduleMain() {
     addEvent(obj);
   }
 
-  // function updateSelectOptions() {
-  //   let options = [];
-
-  //   scheduleList.forEach((obj) => {
-  //     options.push(obj.category);
-  //   });
-
-  //   let optionsSet = new Set(options);
-
-  //   // // empty the select options
-  //   // selectElem.innerHTML = "";
-
-  //   let newOptionElem = document.createElement("option");
-  //   newOptionElem.value = DEFAULT_OPTION;
-  //   newOptionElem.innerText = DEFAULT_OPTION;
-  //   // selectElem.appendChild(newOptionElem);
-
-  //   for (let option of optionsSet) {
-  //     let newOptionElem = document.createElement("option");
-  //     newOptionElem.value = option;
-  //     newOptionElem.innerText = option;
-  //     // selectElem.appendChild(newOptionElem);
-  //   }
-  // }
-
   function save() {
     let stringified = JSON.stringify(scheduleList);
     localStorage.setItem("scheduleList", stringified);
@@ -432,30 +407,6 @@ function scheduleMain() {
     } else {
       renderRows(scheduleList);
     }
-    // } else {
-    //   let filteredCategoryArray = scheduleList.filter(
-    //     (obj) => obj.category == selection
-    //   );
-
-    //   if (shortlistBtn.checked) {
-    //     let resultArray = [];
-
-    //     let filteredIncompleteArray = filteredCategoryArray.filter(
-    //       (obj) => obj.done == false
-    //     );
-    //     //renderRows(filteredIncompleteArray);
-
-    //     let filteredDoneArray = filteredCategoryArray.filter(
-    //       (obj) => obj.done == true
-    //     );
-    //     //renderRows(filteredDoneArray);
-
-    //     resultArray = [...filteredIncompleteArray, ...filteredDoneArray];
-    //     renderRows(resultArray);
-    //   } else {
-    //     renderRows(filteredCategoryArray);
-    //   }
-    // }
   }
 
   function onTableClicked(event) {
@@ -560,17 +511,24 @@ function scheduleMain() {
       : document.getElementById("schedule-edit-endTime").value;
 
     let teacher = [];
-    let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
-    teacherCheckbox.forEach((checkbox) => {
-      if (checkbox.checked) {
+    // let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
+    // teacherCheckbox.forEach((checkbox) => {
+    //   if (checkbox.checked) {
+    //     teacher.push(checkbox.value);
+    //   }
+    // });
+    document
+      .querySelectorAll(".schedule-edit-teacher:checked")
+      .forEach((checkbox) => {
         teacher.push(checkbox.value);
-      }
-    });
+      });
 
     let memo = document.getElementById("schedule-edit-memo").value;
 
     // remove from calendar
-    calendar.getEventById(id).remove();
+    // calendar.getEventById(id).remove();
+    let calendarEvent = calendar.getEventById(this.dataset.id);
+    if (calendarEvent !== null) calendarEvent.remove();
 
     for (let i = 0; i < scheduleList.length; i++) {
       if (scheduleList[i].id == id) {
