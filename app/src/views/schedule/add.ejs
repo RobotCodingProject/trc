@@ -1,0 +1,85 @@
+<%- include("../home/include/_header") %>
+
+<div class="button-box">
+  <a href="/schedule" class="btn btn-light">Back</a>
+</div>
+<h3>Add New Schedule</h3>
+<div class="schedule-input schedule-block">
+  <form action="/schedule/add" method="POST">
+    <span>Category:</span>
+    <input
+      type="text"
+      placeholder="Enter category"
+      list="categoryList"
+      name="category"
+      id="categoryInput"
+    />
+    <datalist id="categoryList">
+      <option value="Regular"></option>
+      <option value="NDIS"></option>
+      <option value="Math"></option>
+      <option value="Holiday"></option>
+    </datalist>
+
+    <span>Date:</span>
+    <div class="date-input">
+      <input type="date" name="startDate" id="startDateInput" />
+      <span>~</span>
+      <input type="date" name="endDate" id="endDateInput" />
+    </div>
+
+    <span>Time:</span>
+    <div class="time-input">
+      <input type="time" name="startTime" id="startTimeInput" />
+      <span>~</span>
+      <input type="time" name="endTime" id="endTimeInput" />
+      <label
+        ><input type="checkbox" name="allDayCheckbox[]" value="1" />
+        All-day</label
+      >
+    </div>
+
+    <span>Teacher:</span>
+    <div class="teacher-input">
+      <!-- <label><input type="checkbox" name="teachers" value="Ben" /> Ben</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jayden" /> Jayden</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jenny" /> Jenny</label
+      ><br />
+      <label><input type="checkbox" name="teachers" value="Jin" /> Jin</label
+      ><br />
+      <label><input type="checkbox" name="teachers" value="Jisu" /> Jisu</label
+      ><br /> -->
+      <label
+        ><input type="checkbox" name="teacherCheckbox[]" value="Ben" />
+        Ben</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teacherCheckbox[]" value="Jayden" />
+        Jayden</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teacherCheckbox[]" value="Jenny" />
+        Jenny</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teacherCheckbox[]" value="Jin" />
+        Jin</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teacherCheckbox[]" value="Jisu" />
+        Jisu</label
+      ><br />
+    </div>
+
+    <span>Memo:</span>
+    <input type="text" name="memo" id="memoInput" />
+
+    <button type="submit">Save</button>
+  </form>
+</div>
+
+<%- include("../home/include/_footer") %>

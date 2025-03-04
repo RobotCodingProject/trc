@@ -1,0 +1,32 @@
+<%- include("../home/include/_header") %>
+
+<h3>All Events</h3>
+<table id="scheduleTable">
+  <!-- <tr>
+    <td>Date</td>
+    <td>Time</td>
+    <td>Class</td>
+    <td>Teacher</td>
+    <td>Memo</td>
+    <td>Edit</td>
+    <td>Delete</td>
+  </tr> -->
+  <ul>
+    <% schedule.forEach(schedule => { %>
+    <li>
+      <strong>Date: </strong> <%= schedule.start_date %> ~ <%= schedule.end_date
+      %>
+    </li>
+    <li>
+      <strong>Time: </strong> <%= schedule.start_time %> ~ <%= schedule.end_time
+      %>
+    </li>
+    <li><strong>Class: </strong><%= schedule.category %></li>
+    <li><strong>Teacher: </strong><%= schedule.teacher %></li>
+    <li><strong>Memo: </strong><%= schedule.memo %></li>
+    <% }); %>
+  </ul>
+  <!-- Dynamically generated rows with event details from the database will go here -->
+</table>
+
+<%- include("../home/include/_footer") %>

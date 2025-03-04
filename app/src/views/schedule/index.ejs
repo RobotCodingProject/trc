@@ -6,17 +6,74 @@
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet"
   />
+  <!-- <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js"></script> -->
+  <!-- Add this to your HTML head -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
+</head>
+
+<body>
+  <h3>Calendar</h3>
+  <div class="schedule-grid-parent">
+    <div>
+      <!-- Add Schedule Button -->
+      <a href="/schedule/add"><button id="addBtn">Add Schedule</button></a>
+      <br></br>
+      <label
+        ><input type="checkbox" id="shortlistBtn" /> Incomplete First
+      </label>
+
+      <!-- Schedule Table -->
+      <div class="schedule-block scheduleTable-block">
+        <table id="scheduleTable">
+          <tr data-id="scheduleTable">
+            <td></td>
+            <td>Date</td>
+            <td>Time</td>
+            <td>Class</td>
+            <td>Teacher</td>
+            <td>Memo</td>
+            <td>Edit</td>
+            <td>Delete</td>
+          </tr>
+          <!-- Insert dynamically generated events from database here -->
+        </table>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="schedule-calendar schedule-block">
+      <div id="calendar"></div>
+    </div>
+  </div>
+
+  <script src="js/schedule/script.js"></script>
+</body>
+
+<%- include("../home/include/_footer") %>
+
+<!-- <%- include("../home/include/_header") %>
+
+<head>
+  <link rel="stylesheet" href="css/schedule/style.css" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
 
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.css"
   />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js"></script>
-
-  <!--
-  <link rel="stylesheet" href="./fullcalendar/main.min.css">
-  <script src="./fullcalendar/main.min.js" defer></script>
---></head>
+</head>
 
 <body>
   <h3>Calendar</h3>
@@ -115,7 +172,6 @@
       <div id="calendar"></div>
     </div>
   </div>
-  <!-- class="schedule-grid-parent" -->
 
   <div class="schedule-overlay" id="schedule-overlay">
     <div class="schedule-modal" id="schedule-modal">
@@ -195,4 +251,4 @@
   <script src="js/schedule/script.js"></script>
 </body>
 
-<%- include("../home/include/_footer") %>
+<%- include("../home/include/_footer") %> -->

@@ -1,0 +1,72 @@
+<%- include("../home/include/_header") %>
+
+<h3>Edit Schedule</h3>
+
+<div class="schedule-input schedule-block">
+  <!-- <form action="/schedule/update" method="POST"> -->
+  <form
+    action="/contacts/<%= contact.id %>?_method=PUT"
+    method="POST"
+    id="add-schedule"
+  >
+    <input type="hidden" name="id" value="<%= schedule.id %>" />
+    <span>Category:</span>
+    <input
+      type="text"
+      name="category"
+      value="<%= schedule.category %>"
+      list="categoryList"
+      id="categoryInput"
+    />
+
+    <span>Date:</span>
+    <div class="date-input">
+      <input type="date" name="startDate" value="<%= schedule.startDate %>" />
+      <span>~</span>
+      <input type="date" name="endDate" value="<%= schedule.endDate %>" />
+    </div>
+
+    <span>Time:</span>
+    <div class="time-input">
+      <input type="time" name="startTime" value="<%= schedule.startTime %>" />
+      <span>~</span>
+      <input type="time" name="endTime" value="<%= schedule.endTime %>" />
+      <label
+        ><input type="checkbox" name="allDay" <%= schedule.allDay ? 'checked' :
+        '' %> /> All-day</label
+      >
+    </div>
+
+    <span>Teacher:</span>
+    <div class="teacher-input">
+      <label
+        ><input type="checkbox" name="teachers" value="Ben" <%=
+        schedule.teachers.includes('Ben') ? 'checked' : '' %> /> Ben</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jayden" <%=
+        schedule.teachers.includes('Jayden') ? 'checked' : '' %> />
+        Jayden</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jenny" <%=
+        schedule.teachers.includes('Jenny') ? 'checked' : '' %> /> Jenny</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jin" <%=
+        schedule.teachers.includes('Jin') ? 'checked' : '' %> /> Jin</label
+      ><br />
+      <label
+        ><input type="checkbox" name="teachers" value="Jisu" <%=
+        schedule.teachers.includes('Jisu') ? 'checked' : '' %> /> Jisu</label
+      ><br />
+    </div>
+
+    <span>Memo:</span>
+    <input type="text" name="memo" value="<%= schedule.memo %>" />
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+
+<%- include("../home/include/_footer") %>

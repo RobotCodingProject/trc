@@ -19,7 +19,7 @@ class Schedule {
   static save(scheduleInfo) {
     return new Promise((resolve, reject) => {
       const query =
-        "INSERT INTO schedule (category, start_date, end_date, all_day, start_time, end_time, teacher, memo,) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO schedule (category, start_date, end_date, all_day, start_time, end_time, teacher, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
         query,
         [
