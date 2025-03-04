@@ -1,0 +1,126 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Body */
+  body {
+    background-color: #f7f7f7;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main Section */
+  #site-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f0f5f9;
+    padding: 20px;
+  }
+  
+  /* Company Logo and Name */
+  .logo {
+    width: 120px;
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  .brand-name {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #89d0f8 !important;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  /* Sign-Up Form Container */
+  .signup-form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .signup-form-container:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Heading */
+  h2 {
+    font-size: 2em;
+    color: #89d0f8 !important;
+    margin-bottom: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Form Inputs */
+  .form-control {
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #89d0f8;
+    outline: none;
+  }
+  
+  /* Button */
+  .btn-primary {
+    background-color: #89d0f8;
+    border: none;
+    font-size: 1.1em;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #69c6f7;
+  }
+  
+  /* Already Registered Link */
+  .text-primary {
+    color: #89d0f8 !important;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+  
+  .text-primary:hover {
+    color: #69c6f7;
+    text-decoration: none;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .signup-form-container {
+      padding: 20px;
+    }
+  
+    .logo {
+      width: 100px;
+    }
+  
+    .brand-name {
+      font-size: 2em;
+    }
+  }
+
