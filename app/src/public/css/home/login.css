@@ -1,8 +1,17 @@
-/* General reset and styles */
+/* General Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Body */
+body {
+  background-color: #f7f7f7;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /* Layout wrapper for two sides */
@@ -11,8 +20,9 @@
   height: 100vh;
 }
 
+/* Left Section (Logo, Title, Image, Description) */
 .left-layout {
-  background-color: #89d0f8;
+  background-color: #f0f5f9;
   width: 50%;
   padding: 20px;
   text-align: center;
@@ -26,18 +36,21 @@
 }
 
 .logo-img {
-  width: 100px;
+  width: 120px;
+  border-radius: 50%;
   margin-bottom: 20px;
 }
 
 .site-title {
   font-size: 2.5em;
-  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #89d0f8;
   margin-bottom: 20px;
+  text-decoration: none;
 }
 
 .description-img {
-  width: 60%;
+  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -51,11 +64,11 @@
 .description-text {
   font-size: 1em;
   color: #555;
-  font-family: "Roboto", sans-serif;
 }
 
+/* Right Section (Login Form) */
 .right-layout {
-  background-color: #fff;
+  background-color: white;
   width: 50%;
   display: flex;
   justify-content: center;
@@ -64,42 +77,59 @@
 }
 
 .login-form-container {
-  width: 80%;
+  width: 100%;
   max-width: 400px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.login-form-container:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
   font-size: 2em;
+  color: #89d0f8;
   margin-bottom: 20px;
-  font-family: "Roboto", sans-serif;
 }
 
+/* Form Inputs */
 input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
+  margin-bottom: 15px;
+  border-radius: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
   font-size: 1em;
+  transition: border-color 0.3s ease;
 }
 
-input[type="submit"] {
-  width: 100%;
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #89d0f8;
+  outline: none;
+}
+
+/* Login Button */
+p[type="button"] {
+  background-color: #89d0f8;
+  color: white;
   padding: 12px;
-  background-color: #89d0f8;
-  border: none;
-  color: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1.1em;
   cursor: pointer;
-  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
 }
 
-input[type="submit"]:hover {
-  background-color: #89d0f8;
+p[type="button"]:hover {
+  background-color: #69c6f7;
 }
 
 .create-account-link {
@@ -114,27 +144,11 @@ input[type="submit"]:hover {
 }
 
 .create-account-link a:hover {
+  color: #69c6f7;
   text-decoration: underline;
 }
 
-/* login */
-p[type="button"] {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 18px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-  width: 20%;
-}
-
-p[type="button"]:hover {
-  background-color: #0056b3;
-  color: white;
-}
-
-/* Responsive styles */
+/* Responsive Styles */
 @media (max-width: 768px) {
   .login-page-wrapper {
     flex-direction: column;
@@ -147,5 +161,18 @@ p[type="button"]:hover {
 
   .description-img {
     width: 100%;
+  }
+
+  .login-form-container {
+    padding: 20px;
+  }
+
+  .logo-img {
+    width: 100px;
+    
+  }
+
+  .site-title {
+    font-size: 2em;
   }
 }
