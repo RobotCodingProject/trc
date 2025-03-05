@@ -43,6 +43,37 @@
             <td>Edit</td>
             <td>Delete</td>
           </tr>
+          <tbody>
+            <% schedule.forEach( schedule => { %>
+            <tr>
+              <td></td>
+              <td><%= schedule.start_day %> ~ <%= schedule.end_day %></td>
+              <td><%= schedule.start_time %> ~ <%= schedule.end_time %></td>
+              <td><%= schedule.category %></td>
+              <td><%= schedule.teacher %></td>
+              <td><%= schedule.memo %></td>      
+              <td>
+                <a
+                  href="/schedule/<%= schedule.id %>"
+                  class="btn update"
+                  title="Edit"
+                >
+                  <i class="fas fa-pencil-alt"></i>
+                </a>
+              </td>
+              <td>
+                <form
+                  action="/schedule/<%= schedule.id %>?_method=DELETE"
+                  method="POST"
+                  style="display: inline"
+                  onsubmit="return confirmDelete()"
+                >
+                  <input type="submit" class="btn delete" title="Delete" value="X"/>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
           <!-- Insert dynamically generated events from database here -->
         </table>
       </div>

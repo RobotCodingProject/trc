@@ -146,7 +146,7 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
   }
 
   try {
-    const updatedSchedule = await Schedule.updatedSchedule(id, {
+    const updatedSchedule = await Schedule.updateSchedule(id, {
       // schedule_name,
       category,
       start_date,

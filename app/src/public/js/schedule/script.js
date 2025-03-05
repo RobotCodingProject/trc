@@ -177,7 +177,7 @@ function scheduleMain() {
     let editSpan = document.createElement("span");
     editSpan.innerText = "edit";
     editSpan.className = "material-icons";
-    editSpan.addEventListener("click", toEditItem, false);
+    // editSpan.addEventListener("click", toEditItem, false);
     editSpan.dataset.id = id;
     let editTd = document.createElement("td");
     editTd.appendChild(editSpan);
@@ -439,142 +439,142 @@ function scheduleMain() {
     return formattedDate;
   }
 
-  function showEditModalBox(event) {
-    document.getElementById("schedule-overlay").classList.add("slidedIntoView");
-  }
+  // function showEditModalBox(event) {
+  //   document.getElementById("schedule-overlay").classList.add("slidedIntoView");
+  // }
 
-  function closeEditModalBox(event) {
-    document
-      .getElementById("schedule-overlay")
-      .classList.remove("slidedIntoView");
-  }
+  // function closeEditModalBox(event) {
+  //   document
+  //     .getElementById("schedule-overlay")
+  //     .classList.remove("slidedIntoView");
+  // }
 
-  function commitEdit(event) {
-    closeEditModalBox();
+  // function commitEdit(event) {
+  //   closeEditModalBox();
 
-    let id = event.target.dataset.id;
-    let category = document.getElementById("schedule-edit-category").value;
-    let startDate = document.getElementById("schedule-edit-startDate").value;
-    let endDate = document.getElementById("schedule-edit-endDate").value;
-    let allDay = document.getElementById("schedule-edit-allDay").checked;
-    let startTime = allDay
-      ? ""
-      : document.getElementById("schedule-edit-startTime").value;
-    let endTime = allDay
-      ? ""
-      : document.getElementById("schedule-edit-endTime").value;
+  //   let id = event.target.dataset.id;
+  //   let category = document.getElementById("schedule-edit-category").value;
+  //   let startDate = document.getElementById("schedule-edit-startDate").value;
+  //   let endDate = document.getElementById("schedule-edit-endDate").value;
+  //   let allDay = document.getElementById("schedule-edit-allDay").checked;
+  //   let startTime = allDay
+  //     ? ""
+  //     : document.getElementById("schedule-edit-startTime").value;
+  //   let endTime = allDay
+  //     ? ""
+  //     : document.getElementById("schedule-edit-endTime").value;
 
-    let teacher = [];
-    document
-      .querySelectorAll(".schedule-edit-teacher:checked")
-      .forEach((checkbox) => {
-        teacher.push(checkbox.value);
-      });
+  //   let teacher = [];
+  //   document
+  //     .querySelectorAll(".schedule-edit-teacher:checked")
+  //     .forEach((checkbox) => {
+  //       teacher.push(checkbox.value);
+  //     });
 
-    let memo = document.getElementById("schedule-edit-memo").value;
+  //   let memo = document.getElementById("schedule-edit-memo").value;
 
-    // remove from calendar
-    // calendar.getEventById(id).remove();
-    let calendarEvent = calendar.getEventById(this.dataset.id);
-    if (calendarEvent !== null) calendarEvent.remove();
+  //   // remove from calendar
+  //   // calendar.getEventById(id).remove();
+  //   let calendarEvent = calendar.getEventById(this.dataset.id);
+  //   if (calendarEvent !== null) calendarEvent.remove();
 
-    for (let i = 0; i < scheduleList.length; i++) {
-      if (scheduleList[i].id == id) {
-        scheduleList[i] = {
-          id: id,
-          category: category,
-          startDate: startDate,
-          endDate: endDate,
-          allDay: allDay,
-          startTime: startTime,
-          endTime: endTime,
-          teacher: teacher.join(", "),
-          memo: memo,
-          done: false,
-        };
+  //   for (let i = 0; i < scheduleList.length; i++) {
+  //     if (scheduleList[i].id == id) {
+  //       scheduleList[i] = {
+  //         id: id,
+  //         category: category,
+  //         startDate: startDate,
+  //         endDate: endDate,
+  //         allDay: allDay,
+  //         startTime: startTime,
+  //         endTime: endTime,
+  //         teacher: teacher.join(", "),
+  //         memo: memo,
+  //         done: false,
+  //       };
 
-        addEvent(scheduleList[i]);
-      }
-    }
+  //       addEvent(scheduleList[i]);
+  //     }
+  //   }
 
-    save();
+  //   save();
 
-    // Update the table
-    //let tdNodeList = scheduleTable.querySelectorAll("td");
-    //let tdNodeList = scheduleTable.querySelectorAll("td[data-id='" + id + "']");
-    let tdNodeList = scheduleTable.querySelectorAll(`td[data-id='${id}']`);
-    for (let i = 0; i < tdNodeList.length; i++) {
-      //if(tdNodeList[i].dataset.id == id){
-      let type = tdNodeList[i].dataset.type;
-      switch (type) {
-        case "date":
-          // tdNodeList[i].innerText = formatDate(date);
-          tdNodeList[i].innerText = `${startDate} ~ ${endDate}`;
-          break;
-        case "time":
-          // tdNodeList[i].innerText = time;
-          tdNodeList[i].innerText = allDay
-            ? "All-day"
-            : `${startTime} ~ ${endTime}`;
-          break;
-        case "category":
-          tdNodeList[i].innerText = category;
-          break;
-        case "teacher":
-          // tdNodeList[i].innerText = teacher;
-          tdNodeList[i].innerText = teacher.join(", ");
-          break;
-        case "memo":
-          tdNodeList[i].innerText = memo;
-          break;
-      }
-      //}
-    }
-  }
+  //   // Update the table
+  //   //let tdNodeList = scheduleTable.querySelectorAll("td");
+  //   //let tdNodeList = scheduleTable.querySelectorAll("td[data-id='" + id + "']");
+  //   let tdNodeList = scheduleTable.querySelectorAll(`td[data-id='${id}']`);
+  //   for (let i = 0; i < tdNodeList.length; i++) {
+  //     //if(tdNodeList[i].dataset.id == id){
+  //     let type = tdNodeList[i].dataset.type;
+  //     switch (type) {
+  //       case "date":
+  //         // tdNodeList[i].innerText = formatDate(date);
+  //         tdNodeList[i].innerText = `${startDate} ~ ${endDate}`;
+  //         break;
+  //       case "time":
+  //         // tdNodeList[i].innerText = time;
+  //         tdNodeList[i].innerText = allDay
+  //           ? "All-day"
+  //           : `${startTime} ~ ${endTime}`;
+  //         break;
+  //       case "category":
+  //         tdNodeList[i].innerText = category;
+  //         break;
+  //       case "teacher":
+  //         // tdNodeList[i].innerText = teacher;
+  //         tdNodeList[i].innerText = teacher.join(", ");
+  //         break;
+  //       case "memo":
+  //         tdNodeList[i].innerText = memo;
+  //         break;
+  //     }
+  //     //}
+  //   }
+  // }
 
-  function toEditItem(event) {
-    showEditModalBox();
+  // function toEditItem(event) {
+  //   showEditModalBox();
 
-    let id;
+  //   let id;
 
-    if (event.target)
-      // mouse event
-      id = event.target.dataset.id;
-    // calendar event
-    else id = event.id;
+  //   if (event.target)
+  //     // mouse event
+  //     id = event.target.dataset.id;
+  //   // calendar event
+  //   else id = event.id;
 
-    preFillEditForm(id);
-  }
+  //   preFillEditForm(id);
+  // }
 
-  function preFillEditForm(id) {
-    let result = scheduleList.find((scheduleObj) => scheduleObj.id == id);
-    let {
-      category,
-      startDate,
-      endDate,
-      allDay,
-      startTime,
-      endTime,
-      teacher,
-      memo,
-    } = result;
+  // function preFillEditForm(id) {
+  //   let result = scheduleList.find((scheduleObj) => scheduleObj.id == id);
+  //   let {
+  //     category,
+  //     startDate,
+  //     endDate,
+  //     allDay,
+  //     startTime,
+  //     endTime,
+  //     teacher,
+  //     memo,
+  //   } = result;
 
-    document.getElementById("schedule-edit-category").value = category;
-    document.getElementById("schedule-edit-startDate").value = startDate;
-    document.getElementById("schedule-edit-endDate").value = endDate;
-    document.getElementById("schedule-edit-allDay").checked = allDay;
-    document.getElementById("schedule-edit-startTime").value = startTime;
-    document.getElementById("schedule-edit-endTime").value = endTime;
+  //   document.getElementById("schedule-edit-category").value = category;
+  //   document.getElementById("schedule-edit-startDate").value = startDate;
+  //   document.getElementById("schedule-edit-endDate").value = endDate;
+  //   document.getElementById("schedule-edit-allDay").checked = allDay;
+  //   document.getElementById("schedule-edit-startTime").value = startTime;
+  //   document.getElementById("schedule-edit-endTime").value = endTime;
 
-    let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
-    teacherCheckbox.forEach((checkbox) => {
-      checkbox.checked = teacher.includes(checkbox.value);
-    });
+  //   let teacherCheckbox = document.querySelectorAll(".schedule-edit-teacher");
+  //   teacherCheckbox.forEach((checkbox) => {
+  //     checkbox.checked = teacher.includes(checkbox.value);
+  //   });
 
-    document.getElementById("schedule-edit-memo").value = memo;
+  //   document.getElementById("schedule-edit-memo").value = memo;
 
-    changeBtn.dataset.id = id;
-  }
+  //   changeBtn.dataset.id = id;
+  // }
 
   function onDragstart(event) {
     draggingElement = event.target; //trElem
