@@ -70,7 +70,9 @@
       <tr>
         <!-- <td><%= contact.student_id %></td> -->
         <td><%= contact.status %></td>
-        <td><%= contact.student_name %></td>
+        <td>
+          <a href="/progress/<%= contact.student_id %>"><%= contact.student_name %></a>
+        </td>        
         <td><%= contact.school_name %></td>
         <td><%= contact.school_year %></td>
         <td><%= contact.email %></td>

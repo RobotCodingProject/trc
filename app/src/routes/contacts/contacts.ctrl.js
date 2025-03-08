@@ -194,6 +194,64 @@ const searchContacts = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc Student Progress
+// @route GET /contacts/progress
+const getProgress = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  Contact.getProgress(id, (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!results.length) {
+      return res
+        .status(404)
+        .json({ message: "No progress records found for this student." });
+    }
+    res.json(results);
+  });
+});
+
+const addProgress = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { date, day, time, robot, coding } = req.body;
+
+  if (!date || !day || !time || robot === undefined || coding === undefined) {
+    return res.status(400).json({ error: "All progress fields are required." });
+  }
+
+  Contact.addProgress(id, req.body, (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ message: "Progress added successfully", result });
+  });
+});
+
+const updateProgress = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { date, day, time, robot, coding } = req.body;
+
+  if (!date || !day || !time || robot === undefined || coding === undefined) {
+    return res.status(400).json({ error: "All progress fields are required." });
+  }
+
+  Contact.updateProgress(id, req.body, (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Progress record not found." });
+    }
+    res.json({ message: "Progress updated successfully", result });
+  });
+});
+
+const deleteProgress = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  Contact.deleteProgress(id, (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Progress record not found." });
+    }
+    res.json({ message: "Progress deleted successfully", result });
+  });
+});
+
 module.exports = {
   getAllContacts,
   createContact,
@@ -202,4 +260,8 @@ module.exports = {
   deleteContact,
   addContactForm,
   searchContacts,
+  getProgress,
+  addProgress,
+  updateProgress,
+  deleteProgress,
 };

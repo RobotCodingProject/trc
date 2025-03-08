@@ -1,0 +1,35 @@
+<%- include("../home/include/_header") %>
+
+<h2>Student Progress</h2>
+
+<form action="/contacts/progress/<%= student.student._id %>" method="POST">
+  <label>Date:</label>
+  <input type="date" name="date" required />
+
+  <label>Day:</label>
+  <input type="text" name="day" />
+
+  <label>Time:</label>
+  <input type="time" name="time" />
+
+  <label>Robot:</label>
+  <textarea name="robot"></textarea>
+
+  <label>Coding:</label>
+  <textarea name="coding"></textarea>
+
+  <button type="submit">Save</button>
+</form>
+
+<h3>Progress Status</h3>
+<ul>
+  <% student.progress.forEach(p => { %>
+  <li>
+    <strong><%= p.date %> (<%= p.day %>)</strong>
+    <p>Robot: <%= p.robot %></p>
+    <p>Coding: <%= p.coding %></p>
+  </li>
+  <% }) %>
+</ul>
+
+<%- include("../home/include/_footer") %>

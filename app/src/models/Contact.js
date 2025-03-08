@@ -114,6 +114,63 @@ class Contact {
       callback(null, results);
     });
   }
+
+  static getProgress(student_id, callback) {
+    const query =
+      "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
+    db.query(query, [student_id], (err, results) => {
+      if (err) callback(err, null);
+      else callback(null, results);
+    });
+  }
+
+  static addProgress(student_id, progressInfo, callback) {
+    const query =
+      "INSERT INTO progress (student_id, date, day, time, robot, coding) VALUES (?, ?, ?, ?, ?, ?)";
+    db.query(
+      query,
+      [
+        student_id,
+        progressInfo.date,
+        progressInfo.day,
+        progressInfo.time,
+        progressInfo.robot,
+        progressInfo.coding,
+      ],
+      (err, result) => {
+        if (err) callback(err, null);
+        else callback(null, result);
+      }
+    );
+  }
+
+  static updateProgress(progress_id, progressInfo, callback) {
+    const query =
+      "UPDATE progress SET date = ?, day = ?, time = ?, robot = ?, coding = ? WHERE id = ?";
+    db.query(
+      query,
+      [
+        progressInfo.date,
+        progressInfo.day,
+        progressInfo.time,
+        progressInfo.robot,
+        progressInfo.coding,
+        progress_id,
+      ],
+      (err, result) => {
+        if (err) callback(err, null);
+        else callback(null, result);
+      }
+    );
+  }
+
+  static deleteProgress(progress_id, callback) {
+    const query = "DELETE FROM progress WHERE id = ?";
+    db.query(query, [progress_id], (err, result) => {
+      if (err) callback(err, null);
+      else callback(null, result);
+    });
+  }
 }
 
 module.exports = Contact;
