@@ -2,7 +2,7 @@
 
 <h2>Student Progress</h2>
 
-<form action="/contacts/progress/<%= student.student._id %>" method="POST">
+<form action="/contacts/progress/<%= student._id %>" method="POST">
   <label>Date:</label>
   <input type="date" name="date" required />
 
@@ -23,9 +23,10 @@
 
 <h3>Progress Status</h3>
 <ul>
-  <% student.progress.forEach(p => { %>
+  <% progress.forEach(p => { %>
   <li>
     <strong><%= p.date %> (<%= p.day %>)</strong>
+    <p>Time: <% p.time %></p>
     <p>Robot: <%= p.robot %></p>
     <p>Coding: <%= p.coding %></p>
   </li>

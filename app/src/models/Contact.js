@@ -24,6 +24,11 @@ class Contact {
 
   static save(contactInfo) {
     return new Promise((resolve, reject) => {
+      // class_day가 배열이거나 값이 있다면 join(", ")을 사용하고, 없다면 빈 문자열로 설정
+      const classDayValue = Array.isArray(contactInfo.class_day)
+        ? contactInfo.class_day.join(", ")
+        : contactInfo.class_day || "";
+
       const query =
         "INSERT INTO contacts (status, student_name, school_name, school_year, email, parent_name, contact_number, ndis, class_day, start_time, end_time, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       db.query(
@@ -37,7 +42,7 @@ class Contact {
           contactInfo.parent_name,
           contactInfo.contact_number,
           contactInfo.ndis,
-          contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
+          classDayValue, //contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
           contactInfo.start_time,
           contactInfo.end_time,
           contactInfo.memo,
@@ -52,6 +57,10 @@ class Contact {
 
   static updateContact(student_id, contactInfo) {
     return new Promise((resolve, reject) => {
+      // class_day가 배열이거나 값이 있다면 join(", ")을 사용하고, 없다면 빈 문자열로 설정
+      const classDayValue = Array.isArray(contactInfo.class_day)
+        ? contactInfo.class_day.join(", ")
+        : contactInfo.class_day || "";
       const query =
         "UPDATE contacts SET status = ?, student_name = ?, school_name = ?, school_year = ?, email = ?, parent_name = ?, contact_number = ?, ndis = ?, class_day = ?, start_time = ?, end_time = ?, memo =? WHERE student_id = ?";
       db.query(
@@ -65,7 +74,7 @@ class Contact {
           contactInfo.parent_name,
           contactInfo.contact_number,
           contactInfo.ndis,
-          contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
+          classDayValue, //contactInfo.class_day ? contactInfo.class_day.join(", ") : "",
           contactInfo.start_time,
           contactInfo.end_time,
           contactInfo.memo,
@@ -115,12 +124,21 @@ class Contact {
     });
   }
 
-  static getProgress(student_id, callback) {
+  static getProgress(student_id, res) {
     const query =
       "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
     db.query(query, [student_id], (err, results) => {
-      if (err) callback(err, null);
-      else callback(null, results);
+      if (err) {
+        console.error("Error retrieving progress data:", err);
+        return res.status(500).send("Error retrieving progress");
+      }
+
+      if (results.length === 0) {
+        return res.status(404).send("No progress found for this student");
+      }
+
+      // progress 데이터와 학생 정보가 있을 경우 렌더링
+      res.render("progress", { progress: results });
     });
   }
 

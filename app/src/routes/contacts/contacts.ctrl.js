@@ -196,26 +196,35 @@ const searchContacts = asyncHandler(async (req, res) => {
 
 // @desc Student Progress
 // @route GET /contacts/progress
-const getProgress = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  Contact.getProgress(id, (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (!results.length) {
-      return res
-        .status(404)
-        .json({ message: "No progress records found for this student." });
+const getProgress = (req, res) => {
+  const student_id = req.params.id; // URL에서 student_id 가져오기
+
+  const query = "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
+  db.query(query, [student_id], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database query error" });
     }
+
+    // 데이터가 없으면 빈 배열을 반환
     res.json(results);
   });
-});
+};
+
+// const getProgress = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+//   Contact.getProgress(id, (err, results) => {
+//     if (err) return res.status(500).json({ error: err.message });
+//     if (!results.length) {
+//       return res
+//         .status(404)
+//         .json({ message: "No progress records found for this student." });
+//     }
+//     res.json(results);
+//   });
+// });
 
 const addProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { date, day, time, robot, coding } = req.body;
-
-  if (!date || !day || !time || robot === undefined || coding === undefined) {
-    return res.status(400).json({ error: "All progress fields are required." });
-  }
 
   Contact.addProgress(id, req.body, (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -225,11 +234,6 @@ const addProgress = asyncHandler(async (req, res) => {
 
 const updateProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { date, day, time, robot, coding } = req.body;
-
-  if (!date || !day || !time || robot === undefined || coding === undefined) {
-    return res.status(400).json({ error: "All progress fields are required." });
-  }
 
   Contact.updateProgress(id, req.body, (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
