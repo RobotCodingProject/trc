@@ -89,13 +89,16 @@ const createContact = asyncHandler(async (req, res) => {
 // @route GET /contacts/:id
 const getContact = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "Student ID is missing" });
+  }
   try {
-    Contact.getContactInfo(id, (err, contact) => {
-      if (err || !contact) {
+    Contact.getContactInfo(id, (err, c) => {
+      if (err || !c) {
         res.status(404).send({ error: "Student not found" });
       } else {
-        contact.class_day = contact.class_day || [];
-        res.render("contacts/update", { contact });
+        c.class_day = c.class_day || [];
+        res.render("contacts/update", { c });
       }
     });
   } catch (err) {
@@ -107,6 +110,9 @@ const getContact = asyncHandler(async (req, res) => {
 // @route PUT /contacts/:id
 const updateContact = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "Student ID is missing" });
+  }
   const {
     status,
     student_name,
@@ -195,41 +201,36 @@ const searchContacts = asyncHandler(async (req, res) => {
 });
 
 // @desc Student Progress
-// @route GET /contacts/progress
-const getProgress = (req, res) => {
-  const student_id = req.params.id; // URL에서 student_id 가져오기
-
-  const query = "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
-  db.query(query, [student_id], (err, results) => {
-    if (err) {
-      return res.status(500).json({ error: "Database query error" });
+// @route GET /contacts/progress/:id
+const getProgress = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const results = await Contact.getProgress(id); // assuming getProgress returns a promise
+    if (!results || results.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No progress records found for this student." });
     }
-
-    // 데이터가 없으면 빈 배열을 반환
     res.json(results);
-  });
-};
-
-// const getProgress = asyncHandler(async (req, res) => {
-//   const { id } = req.params;
-//   Contact.getProgress(id, (err, results) => {
-//     if (err) return res.status(500).json({ error: err.message });
-//     if (!results.length) {
-//       return res
-//         .status(404)
-//         .json({ message: "No progress records found for this student." });
-//     }
-//     res.json(results);
-//   });
-// });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 const addProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  Contact.addProgress(id, req.body, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.status(201).json({ message: "Progress added successfully", result });
-  });
+  if (!id) {
+    return res.status(400).json({ error: "Student ID is missing" });
+  }
+
+  try {
+    // Contact에 progress 추가하는 로직
+    await Contact.addProgress(id, req.body);
+    res.status(201).json({ message: "Progress added successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 const updateProgress = asyncHandler(async (req, res) => {

@@ -18,7 +18,7 @@
   </div>
   <h2>Edit Student Record</h2>
   <form
-    action="/contacts/<%= contact.student_id %>?_method=PUT"
+    action="/contacts/<%= c.student_id %>?_method=PUT"
     method="POST"
     id="add-user"
   >
@@ -31,7 +31,7 @@
             class="form-control"
             name="student_id"
             id="student_id"
-            value="<%= contact.student_id %>"
+            value="<%= c.student_id %>"
           />
         </div>
       </div> -->
@@ -53,7 +53,7 @@
             class="form-control"
             name="student_name"
             id="student_name"
-            value="<%= contact.student_name %>"
+            value="<%= c.student_name %>"
           />
         </div>
       </div>
@@ -65,7 +65,7 @@
             class="form-control"
             name="school_name"
             id="school_name"
-            value="<%= contact.school_name %>"
+            value="<%= c.school_name %>"
           />
         </div>
       </div>
@@ -77,7 +77,7 @@
             class="form-control"
             name="school_year"
             id="school_year"
-            value="<%= contact.school_year %>"
+            value="<%= c.school_year %>"
           />
         </div>
       </div>
@@ -89,7 +89,7 @@
             class="form-control"
             name="email"
             id="email"
-            value="<%= contact.email %>"
+            value="<%= c.email %>"
           />
         </div>
       </div>
@@ -101,7 +101,7 @@
             class="form-control"
             name="parent_name"
             id="parent_name"
-            value="<%= contact.parent_name %>"
+            value="<%= c.parent_name %>"
           />
         </div>
       </div>
@@ -115,7 +115,7 @@
             class="form-control"
             name="contact_number"
             id="contact_number"
-            value="<%= contact.contact_number %>"
+            value="<%= c.contact_number %>"
           />
         </div>
       </div>
@@ -127,7 +127,7 @@
             class="form-control"
             name="trial_date_time"
             id="trial_date_time"
-            value="<%= contact.trial_date_time %>"
+            value="<%= c.trial_date_time %>"
           />
       </div>
     </div> -->
@@ -148,22 +148,22 @@
           class="form-control"
           name="class_day"
           id="class_day"
-          value="<%= contact.class_day %>"
+          value="<%= c.class_day %>"
         /> -->
           <input type="checkbox" name="class_day" value="Monday" <%=
-          contact.class_day.includes('Monday') ? 'checked' : '' %> /> Monday
-          <input type="checkbox" name="class_day" value="Tuesday" <%=
-          contact.class_day.includes('Tuesday') ? 'checked' : '' %> /> Tuesday
-          <input type="checkbox" name="class_day" value="Wednesday" <%=
-          contact.class_day.includes('Wednesday') ? 'checked' : '' %> />
-          Wednesday <input type="checkbox" name="class_day" value="Thursday" <%=
-          contact.class_day.includes('Thursday') ? 'checked' : '' %> /> Thursday
+          c.class_day.includes('Monday') ? 'checked' : '' %> /> Monday <input
+          type="checkbox" name="class_day" value="Tuesday" <%=
+          c.class_day.includes('Tuesday') ? 'checked' : '' %> /> Tuesday <input
+          type="checkbox" name="class_day" value="Wednesday" <%=
+          c.class_day.includes('Wednesday') ? 'checked' : '' %> /> Wednesday
+          <input type="checkbox" name="class_day" value="Thursday" <%=
+          c.class_day.includes('Thursday') ? 'checked' : '' %> /> Thursday
           <input type="checkbox" name="class_day" value="Friday" <%=
-          contact.class_day.includes('Friday') ? 'checked' : '' %> /> Friday
-          <input type="checkbox" name="class_day" value="Saturday" <%=
-          contact.class_day.includes('Saturday') ? 'checked' : '' %> /> Saturday
+          c.class_day.includes('Friday') ? 'checked' : '' %> /> Friday <input
+          type="checkbox" name="class_day" value="Saturday" <%=
+          c.class_day.includes('Saturday') ? 'checked' : '' %> /> Saturday
           <input type="checkbox" name="class_day" value="Sunday" <%=
-          contact.class_day.includes('Sunday') ? 'checked' : '' %> /> Sunday
+          c.class_day.includes('Sunday') ? 'checked' : '' %> /> Sunday
         </div>
       </div>
       <div class="col-12">
@@ -196,7 +196,7 @@
             class="form-control"
             name="memo"
             id="memo"
-            value="<%= contact.memo %>"
+            value="<%= c.memo %>"
           />
         </div>
       </div>

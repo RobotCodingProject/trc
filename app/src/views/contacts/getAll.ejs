@@ -41,23 +41,22 @@
     <h1><i class="fa-solid fa-address-card"></i>Contacts Page</h1>
     <h2><%= heading %></h2>
     <ul>
-      <% users.forEach(user => { %>
-      <li><strong>Student ID: </strong> <%= user.student_id %></li>
-      <li><strong>Status: </strong> <%= user.status %></li>
-      <li><strong>Name: </strong><%= user.student_name %></li>
-      <li><strong>School: </strong><%= user.school_name %></li>
-      <li><strong>Year: </strong><%= user.school_year %></li>
-      <li><strong>Email: </strong><%= user.email %></li>
-      <li><strong>Parent Name: </strong><%= user.parent_name %></li>
-      <li><strong>Contact Number: </strong><%= user.contact_number %></li>
+      <% users.forEach(u => { %>
+      <li><strong>Student ID: </strong> <%= u.student_id %></li>
+      <li><strong>Status: </strong> <%= u.status %></li>
+      <li><strong>Name: </strong><%= u.student_name %></li>
+      <li><strong>School: </strong><%= u.school_name %></li>
+      <li><strong>Year: </strong><%= u.school_year %></li>
+      <li><strong>Email: </strong><%= u.email %></li>
+      <li><strong>Parent Name: </strong><%= u.parent_name %></li>
+      <li><strong>Contact Number: </strong><%= u.contact_number %></li>
       <!-- <li><strong>Trial: </strong><%= user.trial_date_time %></li> -->
-      <li><strong>NDIS: </strong><%= user.ndis %></li>
-      <li><strong>Class Day: </strong><%= user.class_day %></li>
+      <li><strong>NDIS: </strong><%= u.ndis %></li>
+      <li><strong>Class Day: </strong><%= u.class_day %></li>
       <li>
-        <strong>Class Time: </strong><%= user.start_time %> ~ <%= user.end_time
-        %>
+        <strong>Class Time: </strong><%= u.start_time %> ~ <%= u.end_time %>
       </li>
-      <li><strong>Memo: </strong><%= user.memo %></li>
+      <li><strong>Memo: </strong><%= u.memo %></li>
 
       <% }); %>
     </ul>

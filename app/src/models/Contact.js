@@ -124,21 +124,14 @@ class Contact {
     });
   }
 
-  static getProgress(student_id, res) {
-    const query =
-      "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
-    db.query(query, [student_id], (err, results) => {
-      if (err) {
-        console.error("Error retrieving progress data:", err);
-        return res.status(500).send("Error retrieving progress");
-      }
-
-      if (results.length === 0) {
-        return res.status(404).send("No progress found for this student");
-      }
-
-      // progress 데이터와 학생 정보가 있을 경우 렌더링
-      res.render("progress", { progress: results });
+  static getProgress(id) {
+    return new Promise((resolve, reject) => {
+      const query =
+        "SELECT * FROM progress WHERE student_id = ? ORDER BY date ASC";
+      db.query(query, [id], (err, results) => {
+        if (err) return reject(err);
+        resolve(results);
+      });
     });
   }
 

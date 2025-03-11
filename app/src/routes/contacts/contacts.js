@@ -28,10 +28,7 @@ router.route("/:id").get(getContact).put(updateContact).delete(deleteContact);
 
 router
   .route("/progress/:id")
-  .get((req, res) => {
-    const student_id = req.params.id;
-    getProgress(student_id, res); // 여기서 res 객체를 전달
-  })
+  .get(getProgress)
   .post(addProgress)
   .put(updateProgress)
   .delete(deleteProgress);

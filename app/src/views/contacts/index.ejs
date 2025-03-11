@@ -66,33 +66,33 @@
       </tr>
     </thead>
     <tbody>
-      <% contacts.forEach( contact => { %>
+      <% contacts.forEach( c => { %>
       <tr>
-        <!-- <td><%= contact.student_id %></td> -->
-        <td><%= contact.status %></td>
+        <!-- <td><%= c.student_id %></td> -->
+        <td><%= c.status %></td>
         <td>
-          <a href="/progress/<%= contact.student_id %>"><%= contact.student_name %></a>
+          <a href="/contacts/progress/<%= c.student_id %>"><%= c.student_name %></a>
         </td>        
-        <td><%= contact.school_name %></td>
-        <td><%= contact.school_year %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.parent_name %></td>
-        <td><%= contact.contact_number %></td>
-        <td><%= contact.ndis %></td>
-        <td><%= contact.class_day %></td>
-        <td><%= contact.start_time %> ~ <%= contact.end_time %></td>
-        <td><%= contact.memo %></td>
+        <td><%= c.school_name %></td>
+        <td><%= c.school_year %></td>
+        <td><%= c.email %></td>
+        <td><%= c.parent_name %></td>
+        <td><%= c.contact_number %></td>
+        <td><%= c.ndis %></td>
+        <td><%= c.class_day %></td>
+        <td><%= c.start_time %> ~ <%= c.end_time %></td>
+        <td><%= c.memo %></td>
 
         <td>
           <a
-            href="/contacts/<%= contact.student_id %>"
+            href="/contacts/<%= c.student_id %>"
             class="btn update"
             title="Edit"
           >
             <i class="fas fa-pencil-alt"></i>
           </a>
           <form
-            action="/contacts/<%= contact.student_id %>?_method=DELETE"
+            action="/contacts/<%= c.student_id %>?_method=DELETE"
             method="POST"
             style="display: inline"
             onsubmit="return confirmDelete()"
