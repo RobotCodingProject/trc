@@ -204,34 +204,81 @@ const searchContacts = asyncHandler(async (req, res) => {
 // @route GET /contacts/progress/:id
 const getProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ error: "Student ID is missing" });
+  }
   try {
-    const results = await Contact.getProgress(id); // assuming getProgress returns a promise
-    if (!results || results.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No progress records found for this student." });
+    // 학생 정보 가져오기 (이제 Promise 기반)
+    const student = await Contact.getStudentById(id);
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
     }
-    res.json(results);
+    // 학생의 진행 데이터 가져오기
+    const progress = await Contact.getProgress(id);
+    res.render("contacts/progress", {
+      student, // 학생 정보
+      progress: progress || [], // 진행 데이터
+    });
   } catch (err) {
+    console.error("Error fetching progress:", err);
     res.status(500).json({ error: err.message });
   }
 });
 
 const addProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  if (!id) {
-    return res.status(400).json({ error: "Student ID is missing" });
-  }
+  const { date, day, time, robot, coding } = req.body;
 
   try {
-    // Contact에 progress 추가하는 로직
-    await Contact.addProgress(id, req.body);
-    res.status(201).json({ message: "Progress added successfully" });
+    // 학생이 존재하는지 확인
+    const student = await Contact.getStudentById(id);
+    if (!student) {
+      return res.status(404).send("Student not found");
+    }
+
+    // 새 진행 데이터 추가
+    await Contact.addProgress(id, { date, day, time, robot, coding });
+
+    // 진행 데이터 저장 후, 해당 학생의 progress 페이지로 리다이렉트
+    res.redirect(`/contacts/progress/${id}`);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
+
+// const getProgress = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const results = await Contact.getProgress(id); // assuming getProgress returns a promise
+//     if (!results || results.length === 0) {
+//       return res
+//         .status(404)
+//         .json({ message: "No progress records found for this student." });
+//     }
+//     res.json(results);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+//addProgress
+// const addProgress = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+
+//   if (!id) {
+//     return res.status(400).json({ error: "Student ID is missing" });
+//   }
+
+//   try {
+//     // Contact에 progress 추가하는 로직
+//     await Contact.addProgress(id, req.body);
+//     res.status(201).json({ message: "Progress added successfully" });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 
 const updateProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -245,16 +292,21 @@ const updateProgress = asyncHandler(async (req, res) => {
   });
 });
 
-const deleteProgress = asyncHandler(async (req, res) => {
+const deleteProgress = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  Contact.deleteProgress(id, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
+  try {
+    const result = Contact.deleteProgress(id);
+
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Progress record not found." });
+      return res.status(404).json({ error: "Progress record not found" });
     }
-    res.json({ message: "Progress deleted successfully", result });
-  });
+
+    res.redirect("back"); // 현재 페이지 새로고침
+    // res.redirect(`/contacts/progress/${id}`);
+  } catch (err) {
+    next(err); // 에러 핸들러로 전달
+  }
 });
 
 module.exports = {

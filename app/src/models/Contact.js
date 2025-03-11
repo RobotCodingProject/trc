@@ -135,6 +135,17 @@ class Contact {
     });
   }
 
+  static getStudentById(id) {
+    return new Promise((resolve, reject) => {
+      const query = "SELECT * FROM contacts WHERE student_id = ?";
+      db.query(query, [id], (err, results) => {
+        if (err) return reject(err);
+        if (results.length === 0) return resolve(null); // 학생이 없을 경우 null 반환
+        resolve(results[0]); // 첫 번째 결과(학생 정보) 반환
+      });
+    });
+  }
+
   static addProgress(student_id, progressInfo, callback) {
     const query =
       "INSERT INTO progress (student_id, date, day, time, robot, coding) VALUES (?, ?, ?, ?, ?, ?)";
