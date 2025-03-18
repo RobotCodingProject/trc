@@ -31,6 +31,7 @@ class Contact {
 
       const query =
         "INSERT INTO contacts (status, student_name, school_name, school_year, email, parent_name, contact_number, ndis, class_day, start_time, end_time, memo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
       db.query(
         query,
         [
@@ -48,8 +49,12 @@ class Contact {
           contactInfo.memo,
         ],
         (err, result) => {
-          if (err) reject(err);
-          else resolve(result);
+          if (err) {
+            console.error("Database Error:", err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
         }
       );
     });
