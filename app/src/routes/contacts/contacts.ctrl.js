@@ -292,20 +292,36 @@ const updateProgress = asyncHandler(async (req, res) => {
   });
 });
 
+// const deleteProgress = asyncHandler(async (req, res, next) => {
+//   const { id } = req.params;
+
+//   try {
+//     const result = Contact.deleteProgress(id);
+
+//     if (result.affectedRows === 0) {
+//       return res.status(404).json({ error: "Progress record not found" });
+//     }
+
+//     res.redirect("back"); // 현재 페이지 새로고침
+//     // res.redirect(`/contacts/progress/${id}`);
+//   } catch (err) {
+//     next(err); // 에러 핸들러로 전달
+//   }
+// });
+
 const deleteProgress = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const result = Contact.deleteProgress(id);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Progress record not found" });
+    const deletedProgress = await Contact.deleteProgress(id);
+    if (!deletedProgress) {
+      const error = new Error("Progress not found");
+      error.status = 404;
+      return next(error);
     }
-
-    res.redirect("back"); // 현재 페이지 새로고침
-    // res.redirect(`/contacts/progress/${id}`);
+    res.redirect("back");
   } catch (err) {
-    next(err); // 에러 핸들러로 전달
+    return next(err); // Pass any unexpected errors to the error handler
   }
 });
 
