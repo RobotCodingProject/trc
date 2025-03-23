@@ -153,15 +153,17 @@ class Contact {
 
   static addProgress(student_id, progressInfo, callback) {
     const query =
-      "INSERT INTO progress (student_id, date, day, time, robot, coding) VALUES (?, ?, ?, ?, ?, ?)";
+      "INSERT INTO progress (student_id, date, day, start_time, end_time, robot, status, coding) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     db.query(
       query,
       [
         student_id,
         progressInfo.date,
         progressInfo.day,
-        progressInfo.time,
+        progressInfo.start_time,
+        progressInfo.end_time,
         progressInfo.robot,
+        progressInfo.status,
         progressInfo.coding,
       ],
       (err, result) => {
@@ -173,14 +175,16 @@ class Contact {
 
   static updateProgress(progress_id, progressInfo, callback) {
     const query =
-      "UPDATE progress SET date = ?, day = ?, time = ?, robot = ?, coding = ? WHERE id = ?";
+      "UPDATE progress SET date = ?, day = ?, start_time = ?, end_time = ?, robot = ?, status = ?, coding = ? WHERE id = ?";
     db.query(
       query,
       [
         progressInfo.date,
         progressInfo.day,
-        progressInfo.time,
+        progressInfo.start_time,
+        progressInfo.end_time,
         progressInfo.robot,
+        progressInfo.status,
         progressInfo.coding,
         progress_id,
       ],

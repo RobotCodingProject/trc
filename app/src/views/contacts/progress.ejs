@@ -17,10 +17,20 @@
       <input type="text" name="day" required />
 
       <label>Time:</label>
-      <input type="time" name="time" required />
+      <input type="time" name="startTime" required />
+      <span>~</span>
+      <input type="time" name="endTime" required />
 
       <label>Robot:</label>
       <textarea name="robot" required></textarea>
+
+      <label>Status:</label>
+      <div>
+        <select name="status" id="status" required>
+          <option value="complete">Complete</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+      </div>
 
       <label>Coding:</label>
       <textarea name="coding" required></textarea>
@@ -38,6 +48,7 @@
           <th>Day</th>
           <th>Time</th>
           <th>Robot</th>
+          <th>Status</th>
           <th>Coding</th>
           <th>Delete</th>
         </tr>
@@ -47,8 +58,9 @@
         <tr>
           <td><%= p.date %></td>
           <td><%= p.day %></td>
-          <td><%= p.time %></td>
+          <td><%= p.start_time %> ~ <%= p.end_time %></td>
           <td><%= p.robot %></td>
+          <td><%= p.status %></td>
           <td><%= p.coding %></td>
           <td>
             <form

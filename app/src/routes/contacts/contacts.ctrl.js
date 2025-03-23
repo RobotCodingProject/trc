@@ -228,7 +228,7 @@ const getProgress = asyncHandler(async (req, res) => {
 
 const addProgress = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { date, day, time, robot, coding } = req.body;
+  const { date, day, start_time, end_time, robot, status, coding } = req.body;
 
   try {
     // 학생이 존재하는지 확인
@@ -238,7 +238,15 @@ const addProgress = asyncHandler(async (req, res) => {
     }
 
     // 새 진행 데이터 추가
-    await Contact.addProgress(id, { date, day, time, robot, coding });
+    await Contact.addProgress(id, {
+      date,
+      day,
+      start_time,
+      end_time,
+      robot,
+      status,
+      coding,
+    });
 
     // 진행 데이터 저장 후, 해당 학생의 progress 페이지로 리다이렉트
     res.redirect(`/contacts/progress/${id}`);
