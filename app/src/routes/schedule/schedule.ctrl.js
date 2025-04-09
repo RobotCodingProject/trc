@@ -17,7 +17,7 @@ const Schedule = require("../../models/Schedule");
 
 // @desc Get all schedule
 // @route GET /schedule
-const getAllSchedule = asyncHandler(async (req, res) => {
+const getAllSchedule = asyncHandler(async (_req, res) => {
   try {
     Schedule.getAllSchedule((err, schedule) => {
       if (err) {
@@ -33,7 +33,7 @@ const getAllSchedule = asyncHandler(async (req, res) => {
 
 // @desc View add schedule form
 // @route GET /schedule/add
-const addScheduleForm = asyncHandler((req, res) => {
+const addScheduleForm = asyncHandler((_req, res) => {
   res.render("schedule/add");
 });
 
@@ -46,8 +46,14 @@ const createSchedule = asyncHandler(async (req, res) => {
 
   const all_day = req.body.allDay === "1" ? 1 : 0;
 
-  const { category, start_date, end_date, start_time, end_time, memo } =
-    req.body;
+  const {
+    category,
+    startDate: start_date,
+    endDate: end_date,
+    startTime: start_time,
+    endTime: end_time,
+    memo,
+  } = req.body;
 
   if (!category) {
     return res.status(400).send({ error: "Required fields are missing" });
@@ -130,11 +136,11 @@ const updateSchedule = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const {
     category,
-    start_date,
-    end_date,
-    start_time,
-    end_time,
-    all_day,
+    startDate: start_date,
+    endDate: end_date,
+    startTime: start_time,
+    endTime: end_time,
+    allDay: all_day,
     teacher,
     memo,
   } = req.body;
